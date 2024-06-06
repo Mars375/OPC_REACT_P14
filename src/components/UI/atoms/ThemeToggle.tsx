@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useTheme } from "@/hooks/useTheme";
 
 const ThemeToggle: React.FC = () => {
-	const [isDarkMode, setIsDarkMode] = useState(false);
-
-	useEffect(() => {
-		const savedTheme = localStorage.getItem("theme");
-		if (savedTheme === "dark") {
-			setIsDarkMode(true);
-			document.documentElement.classList.add("dark");
-		}
-	}, []);
-
-	const toggleTheme = () => {
-		setIsDarkMode(!isDarkMode);
-		if (isDarkMode) {
-			localStorage.removeItem("theme");
-			document.documentElement.classList.remove("dark");
-		} else {
-			localStorage.setItem("theme", "dark");
-			document.documentElement.classList.add("dark");
-		}
-	};
+	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<button onClick={toggleTheme} className='bg-primary rounded-full p-2'>
-			{isDarkMode ? "☀️" : "🌙"}
+		<button
+			onClick={toggleTheme}
+			className='relative bg-primary dark:bg-primary-900 text-white dark:text-gray-200 rounded-full p-2'
+		>
+			<span
+				className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out ${
+					theme === "dark" ? "rotate-180" : "rotate-0"
+				} ${theme === "dark" ? "opacity-0 delay-300" : "opacity-100"}`}
+			>
+				🌙
+			</span>
+			<span
+				className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out ${
+					theme === "dark" ? "rotate-0" : "rotate-180"
+				} ${theme === "dark" ? "opacity-100" : "opacity-0"}`}
+			>
+				☀️
+			</span>
 		</button>
 	);
 };
