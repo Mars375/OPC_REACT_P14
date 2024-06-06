@@ -48,7 +48,7 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='container mx-auto p-4 bg-white dark:bg-dark-background text-gray-900 dark:text-dark-text'>
+		<div className='container mx-auto p-4 bg-white dark:bg-background-dark text-gray-900 dark:text-text-dark'>
 			<h2 className='text-xl font-bold mb-4'>Create Employee</h2>
 			<form onSubmit={handleSubmit} className='space-y-4'>
 				<FormField
