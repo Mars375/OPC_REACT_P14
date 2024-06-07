@@ -48,11 +48,11 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='container mx-auto p-4 bg-white dark:bg-background-dark text-gray-900 dark:text-text-dark'>
-			<h2 className='text-xl font-bold mb-4'>Create Employee</h2>
-			<form onSubmit={handleSubmit} className='space-y-4'>
+		<div className='container mx-auto p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg shadow-lg'>
+			<h2 className='text-2xl font-bold mb-6'>Create Employee</h2>
+			<form onSubmit={handleSubmit} className='space-y-6'>
 				<div className='flex flex-wrap -mx-4'>
-					<div className='w-full md:w-1/2 px-4'>
+					<div className='w-full md:w-1/2 px-4 space-y-4'>
 						<FormField
 							label='First Name'
 							id='firstName'
@@ -60,7 +60,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.firstName}
 							onChange={handleChange}
 							name='firstName'
-							inputClassName='outline-none border-2 border-gray-300 dark:border-dark-border rounded-md p-2 focus:ring-2 focus:ring-primary-500'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
 							label='Last Name'
@@ -69,6 +69,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.lastName}
 							onChange={handleChange}
 							name='lastName'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
 							label='Date of Birth'
@@ -77,6 +78,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.dateOfBirth}
 							onChange={handleChange}
 							name='dateOfBirth'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
 							label='Start Date'
@@ -85,6 +87,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.startDate}
 							onChange={handleChange}
 							name='startDate'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
 							label='Department'
@@ -99,12 +102,13 @@ const EmployeeForm: React.FC = () => {
 							value={formData.department}
 							onChange={handleChange}
 							name='department'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 					</div>
-					<div className='w-full md:w-1/2 px-4'>
+					<div className='w-full md:w-1/2 px-4 space-y-4'>
 						<AddressFieldSet
-							className='bg-gray-100 dark:bg-gray-800 p-4'
-							inputClassName='border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-primary-500'
+							className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md'
+							inputClassName='border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 							street={formData.street}
 							city={formData.city}
 							state={formData.state}
@@ -116,13 +120,19 @@ const EmployeeForm: React.FC = () => {
 						/>
 					</div>
 				</div>
-				<Button type='submit' className='bg-primary text-white p-2 rounded'>
+				<Button
+					type='submit'
+					className='bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md'
+				>
 					Save
 				</Button>
 			</form>
 
 			{showConfirmation && (
-				<div id='confirmation' className='modal'>
+				<div
+					id='confirmation'
+					className='mt-4 p-4 bg-green-100 text-green-700 rounded-md'
+				>
 					Employee Created!
 				</div>
 			)}
