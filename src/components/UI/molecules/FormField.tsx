@@ -80,7 +80,7 @@ const FormField: React.FC<FormFieldProps> = ({
 		<div className={`mb-4 ${className}`}>
 			<Label htmlFor={id} text={label} />
 			{inputElement}
-			{fieldError && <p className='text-red-500 text-sm mt-1'>{fieldError}</p>}
+			{fieldError && <p className='text-error text-sm mt-1'>{fieldError}</p>}
 		</div>
 	);
 };

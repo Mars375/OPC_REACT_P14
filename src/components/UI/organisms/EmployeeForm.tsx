@@ -18,11 +18,12 @@ export interface EmployeeFormData {
 }
 
 const EmployeeForm: React.FC = () => {
-	const employeeContext = useContext(EmployeeContext);
-	if (!employeeContext) {
-		throw new Error("EmployeeContext not available");
+	const context = useContext(EmployeeContext);
+	if (!context) {
+		throw new Error("EmployeeForm must be used within an EmployeeProvider");
 	}
-	const { addEmployee } = employeeContext;
+	const { addEmployee } = context;
+
 	const [formData, setFormData] = useState<EmployeeFormData>({
 		firstName: "",
 		lastName: "",
@@ -63,7 +64,7 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='container mx-auto p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700'>
+		<div className='container mx-auto p-6 bg-white dark:bg-gray-darker text-gray-darkest dark:text-gray-light rounded-lg shadow-lg border border-gray dark:border-gray-dark'>
 			<h2 className='text-2xl font-bold mb-6'>Create Employee</h2>
 			<form onSubmit={handleSubmit} className='space-y-6' noValidate>
 				<div className='flex flex-wrap -mx-4'>
@@ -77,7 +78,7 @@ const EmployeeForm: React.FC = () => {
 							name='firstName'
 							rules={{ required: true, message: "First Name is required" }}
 							error={errors.firstName}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
+							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
 						<FormField
 							label='Last Name'
@@ -88,7 +89,7 @@ const EmployeeForm: React.FC = () => {
 							name='lastName'
 							rules={{ required: true, message: "Last Name is required" }}
 							error={errors.lastName}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
+							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
 						<FormField
 							label='Date of Birth'
@@ -99,7 +100,7 @@ const EmployeeForm: React.FC = () => {
 							name='dateOfBirth'
 							rules={{ required: true, message: "Date of Birth is required" }}
 							error={errors.dateOfBirth}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
+							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
 						<FormField
 							label='Start Date'
@@ -110,7 +111,7 @@ const EmployeeForm: React.FC = () => {
 							name='startDate'
 							rules={{ required: true, message: "Start Date is required" }}
 							error={errors.startDate}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
+							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
 						<FormField
 							label='Department'
@@ -127,13 +128,13 @@ const EmployeeForm: React.FC = () => {
 							name='department'
 							rules={{ required: true, message: "Department is required" }}
 							error={errors.department}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
+							inputClassName='outline-none border-2 border-gray dark:border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
 					</div>
 					<div className='w-full md:w-1/2 px-4 space-y-4'>
 						<AddressFieldSet
-							className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700'
-							inputClassName='border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
+							className='bg-gray-light dark:bg-gray-darker p-4 rounded-lg shadow-md border border-gray dark:border-gray-dark'
+							inputClassName='border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 							street={formData.street}
 							city={formData.city}
 							state={formData.state}
@@ -159,15 +160,16 @@ const EmployeeForm: React.FC = () => {
 				</div>
 				<Button
 					type='submit'
-					className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out'
+					className='bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out'
 				>
 					Save
 				</Button>
 			</form>
+
 			{showConfirmation && (
 				<div
 					id='confirmation'
-					className='mt-4 p-4 bg-green-100 text-green-700 rounded-md'
+					className='mt-4 p-4 bg-success-light text-success rounded-md'
 				>
 					Employee Created!
 				</div>
@@ -175,4 +177,5 @@ const EmployeeForm: React.FC = () => {
 		</div>
 	);
 };
+
 export default EmployeeForm;
