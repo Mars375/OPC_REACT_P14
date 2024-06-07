@@ -48,7 +48,7 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='container mx-auto p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg shadow-lg'>
+		<div className='container mx-auto p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700'>
 			<h2 className='text-2xl font-bold mb-6'>Create Employee</h2>
 			<form onSubmit={handleSubmit} className='space-y-6'>
 				<div className='flex flex-wrap -mx-4'>
@@ -107,7 +107,7 @@ const EmployeeForm: React.FC = () => {
 					</div>
 					<div className='w-full md:w-1/2 px-4 space-y-4'>
 						<AddressFieldSet
-							className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md'
+							className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700'
 							inputClassName='border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 							street={formData.street}
 							city={formData.city}
