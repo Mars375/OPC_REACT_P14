@@ -28,6 +28,7 @@ const EmployeeForm: React.FC = () => {
 		department: "",
 	});
 
+	const [errors, setErrors] = useState<Partial<EmployeeFormData>>({});
 	const [showConfirmation, setShowConfirmation] = useState(false);
 
 	const handleChange = (
@@ -37,20 +38,44 @@ const EmployeeForm: React.FC = () => {
 			...formData,
 			[e.target.name]: e.target.value,
 		});
+		setErrors({
+			...errors,
+			[e.target.name]: "",
+		});
+	};
+
+	const validate = () => {
+		const newErrors: Partial<EmployeeFormData> = {};
+		if (!formData.firstName) newErrors.firstName = "First Name is required";
+		if (!formData.lastName) newErrors.lastName = "Last Name is required";
+		if (!formData.dateOfBirth)
+			newErrors.dateOfBirth = "Date of Birth is required";
+		if (!formData.startDate) newErrors.startDate = "Start Date is required";
+		if (!formData.street) newErrors.street = "Street is required";
+		if (!formData.city) newErrors.city = "City is required";
+		if (!formData.state) newErrors.state = "State is required";
+		if (!formData.zipCode) newErrors.zipCode = "Zip Code is required";
+		if (!formData.department) newErrors.department = "Department is required";
+		return newErrors;
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const employees = JSON.parse(localStorage.getItem("employees") || "[]");
-		employees.push(formData);
-		localStorage.setItem("employees", JSON.stringify(employees));
-		setShowConfirmation(true);
+		const newErrors = validate();
+		if (Object.keys(newErrors).length > 0) {
+			setErrors(newErrors);
+		} else {
+			const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+			employees.push(formData);
+			localStorage.setItem("employees", JSON.stringify(employees));
+			setShowConfirmation(true);
+		}
 	};
 
 	return (
 		<div className='container mx-auto p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700'>
 			<h2 className='text-2xl font-bold mb-6'>Create Employee</h2>
-			<form onSubmit={handleSubmit} className='space-y-6'>
+			<form onSubmit={handleSubmit} className='space-y-6' noValidate>
 				<div className='flex flex-wrap -mx-4'>
 					<div className='w-full md:w-1/2 px-4 space-y-4'>
 						<FormField
@@ -60,6 +85,8 @@ const EmployeeForm: React.FC = () => {
 							value={formData.firstName}
 							onChange={handleChange}
 							name='firstName'
+							rules={{ required: true, message: "First Name is required" }}
+							error={errors.firstName}
 							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
@@ -69,6 +96,8 @@ const EmployeeForm: React.FC = () => {
 							value={formData.lastName}
 							onChange={handleChange}
 							name='lastName'
+							rules={{ required: true, message: "Last Name is required" }}
+							error={errors.lastName}
 							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
@@ -78,6 +107,8 @@ const EmployeeForm: React.FC = () => {
 							value={formData.dateOfBirth}
 							onChange={handleChange}
 							name='dateOfBirth'
+							rules={{ required: true, message: "Date of Birth is required" }}
+							error={errors.dateOfBirth}
 							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
@@ -87,6 +118,8 @@ const EmployeeForm: React.FC = () => {
 							value={formData.startDate}
 							onChange={handleChange}
 							name='startDate'
+							rules={{ required: true, message: "Start Date is required" }}
+							error={errors.startDate}
 							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 						<FormField
@@ -102,6 +135,8 @@ const EmployeeForm: React.FC = () => {
 							value={formData.department}
 							onChange={handleChange}
 							name='department'
+							rules={{ required: true, message: "Department is required" }}
+							error={errors.department}
 							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
 						/>
 					</div>
@@ -117,12 +152,24 @@ const EmployeeForm: React.FC = () => {
 							onCityChange={handleChange}
 							onStateChange={handleChange}
 							onZipCodeChange={handleChange}
+							rules={{
+								street: { required: true, message: "Street is required" },
+								city: { required: true, message: "City is required" },
+								state: { required: true, message: "State is required" },
+								zipCode: { required: true, message: "Zip Code is required" },
+							}}
+							errors={{
+								street: errors.street,
+								city: errors.city,
+								state: errors.state,
+								zipCode: errors.zipCode,
+							}}
 						/>
 					</div>
 				</div>
 				<Button
 					type='submit'
-					className='bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md'
+					className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105'
 				>
 					Save
 				</Button>

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Input from "@atoms/Input";
 import Label from "@atoms/Label";
 import Select from "@atoms/Select";
+
+interface Rule {
+	required?: boolean;
+	message?: string;
+}
 
 interface FormFieldProps {
 	label: string;
@@ -13,6 +18,7 @@ interface FormFieldProps {
 	inputClassName?: string; // Pour personnaliser l'input/select
 	value?: string;
 	name?: string;
+	rules?: Rule; // Ajout de la prop rules
 	onChange?: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void; // Ajout de la prop onChange
@@ -28,9 +34,24 @@ const FormField: React.FC<FormFieldProps> = ({
 	inputClassName,
 	value,
 	name,
+	rules,
 	onChange,
 	...rest
 }) => {
+	const [fieldError, setFieldError] = useState<string | undefined>(error);
+
+	useEffect(() => {
+		setFieldError(error);
+	}, [error]);
+
+	const handleBlur = () => {
+		if (rules?.required && !value) {
+			setFieldError(rules.message || "This field is required");
+		} else {
+			setFieldError(undefined);
+		}
+	};
+
 	const inputElement = options ? (
 		<Select
 			id={id}
@@ -38,6 +59,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			className={inputClassName}
 			value={value}
 			name={name}
+			onBlur={handleBlur}
 			onChange={onChange}
 			{...rest}
 		/>
@@ -48,6 +70,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			className={inputClassName}
 			value={value}
 			name={name}
+			onBlur={handleBlur}
 			onChange={onChange}
 			{...rest}
 		/>
@@ -57,7 +80,7 @@ const FormField: React.FC<FormFieldProps> = ({
 		<div className={`mb-4 ${className}`}>
 			<Label htmlFor={id} text={label} />
 			{inputElement}
-			{error && <p className='text-error mt-1'>{error}</p>}
+			{fieldError && <p className='text-red-500 text-sm mt-1'>{fieldError}</p>}
 		</div>
 	);
 };
