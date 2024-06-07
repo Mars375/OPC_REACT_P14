@@ -57,7 +57,7 @@ const FormField: React.FC<FormFieldProps> = ({
 		<div className={`mb-4 ${className}`}>
 			<Label htmlFor={id} text={label} />
 			{inputElement}
-			{error && <p className='text-error dark:text-dark-error mt-1'>{error}</p>}
+			{error && <p className='text-error mt-1'>{error}</p>}
 		</div>
 	);
 };

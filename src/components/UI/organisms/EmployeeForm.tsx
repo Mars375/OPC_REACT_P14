@@ -51,66 +51,71 @@ const EmployeeForm: React.FC = () => {
 		<div className='container mx-auto p-4 bg-white dark:bg-background-dark text-gray-900 dark:text-text-dark'>
 			<h2 className='text-xl font-bold mb-4'>Create Employee</h2>
 			<form onSubmit={handleSubmit} className='space-y-4'>
-				<FormField
-					label='First Name'
-					id='firstName'
-					type='text'
-					value={formData.firstName}
-					onChange={handleChange}
-					name='firstName'
-				/>
-				<FormField
-					label='Last Name'
-					id='lastName'
-					type='text'
-					value={formData.lastName}
-					onChange={handleChange}
-					name='lastName'
-				/>
-				<FormField
-					label='Date of Birth'
-					id='dateOfBirth'
-					type='date'
-					value={formData.dateOfBirth}
-					onChange={handleChange}
-					name='dateOfBirth'
-				/>
-				<FormField
-					label='Start Date'
-					id='startDate'
-					type='date'
-					value={formData.startDate}
-					onChange={handleChange}
-					name='startDate'
-				/>
-
-				<AddressFieldSet
-					className='bg-gray-100 dark:bg-gray-800 p-4'
-					inputClassName='border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-primary-500'
-					street={formData.street}
-					city={formData.city}
-					state={formData.state}
-					zipCode={formData.zipCode}
-					onStreetChange={handleChange}
-					onCityChange={handleChange}
-					onStateChange={handleChange}
-					onZipCodeChange={handleChange}
-				/>
-
-				<FormField
-					label='Department'
-					id='department'
-					options={[
-						{ value: "Sales", label: "Sales" },
-						{ value: "Marketing", label: "Marketing" },
-						{ value: "Engineering", label: "Engineering" },
-						{ value: "Human Resources", label: "Human Resources" },
-						{ value: "Legal", label: "Legal" },
-					]}
-					value={formData.department}
-					onChange={handleChange}
-					name='department'
-				/>
+				<div className='flex flex-wrap -mx-4'>
+					<div className='w-full md:w-1/2 px-4'>
+						<FormField
+							label='First Name'
+							id='firstName'
+							type='text'
+							value={formData.firstName}
+							onChange={handleChange}
+							name='firstName'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-dark-border rounded-md p-2 focus:ring-2 focus:ring-primary-500'
+						/>
+						<FormField
+							label='Last Name'
+							id='lastName'
+							type='text'
+							value={formData.lastName}
+							onChange={handleChange}
+							name='lastName'
+						/>
+						<FormField
+							label='Date of Birth'
+							id='dateOfBirth'
+							type='date'
+							value={formData.dateOfBirth}
+							onChange={handleChange}
+							name='dateOfBirth'
+						/>
+						<FormField
+							label='Start Date'
+							id='startDate'
+							type='date'
+							value={formData.startDate}
+							onChange={handleChange}
+							name='startDate'
+						/>
+						<FormField
+							label='Department'
+							id='department'
+							options={[
+								{ value: "Sales", label: "Sales" },
+								{ value: "Marketing", label: "Marketing" },
+								{ value: "Engineering", label: "Engineering" },
+								{ value: "Human Resources", label: "Human Resources" },
+								{ value: "Legal", label: "Legal" },
+							]}
+							value={formData.department}
+							onChange={handleChange}
+							name='department'
+						/>
+					</div>
+					<div className='w-full md:w-1/2 px-4'>
+						<AddressFieldSet
+							className='bg-gray-100 dark:bg-gray-800 p-4'
+							inputClassName='border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-primary-500'
+							street={formData.street}
+							city={formData.city}
+							state={formData.state}
+							zipCode={formData.zipCode}
+							onStreetChange={handleChange}
+							onCityChange={handleChange}
+							onStateChange={handleChange}
+							onZipCodeChange={handleChange}
+						/>
+					</div>
+				</div>
 				<Button type='submit' className='bg-primary text-white p-2 rounded'>
 					Save
 				</Button>

@@ -36,7 +36,7 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 }) => {
 	return (
 		<fieldset className={`border rounded-md p-4 ${className}`}>
-			<legend className='text-gray-700 dark:text-dark-text font-bold mb-2'>
+			<legend className='text-gray-700 dark:text-text-dark font-bold mb-2'>
 				Address
 			</legend>
 
