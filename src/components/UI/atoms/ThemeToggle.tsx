@@ -5,25 +5,22 @@ const ThemeToggle: React.FC = () => {
 	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<button
-			onClick={toggleTheme}
-			className='relative text-white dark:text-gray-200 rounded-full p-2'
-		>
-			<span
-				className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out ${
-					theme === "dark" ? "rotate-180" : "rotate-0"
-				} ${theme === "dark" ? "opacity-0 delay-300" : "opacity-100"}`}
+		<div className='flex items-center'>
+			<span className='mr-2 text-gray-900 dark:text-gray-100'>Light</span>
+			<button
+				onClick={toggleTheme}
+				className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-300 ease-in-out ${
+					theme === "dark" ? "bg-yellow-500" : "bg-gray-300"
+				}`}
 			>
-				🌙
-			</span>
-			<span
-				className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out ${
-					theme === "dark" ? "rotate-0" : "rotate-180"
-				} ${theme === "dark" ? "opacity-100" : "opacity-0"}`}
-			>
-				☀️
-			</span>
-		</button>
+				<span
+					className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-300 ease-in-out ${
+						theme === "dark" ? "translate-x-6" : "translate-x-1"
+					}`}
+				/>
+			</button>
+			<span className='ml-2 text-gray-900 dark:text-gray-100'>Dark</span>
+		</div>
 	);
 };
 
