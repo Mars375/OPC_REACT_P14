@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import FormField from "../molecules/FormField";
 import AddressFieldSet from "../molecules/AddressFieldSet";
 import Button from "../atoms/Button";
+import { validate } from "@/utils/validation";
 
-interface EmployeeFormData {
+export interface EmployeeFormData {
 	firstName: string;
 	lastName: string;
 	dateOfBirth: string;
@@ -44,24 +45,9 @@ const EmployeeForm: React.FC = () => {
 		});
 	};
 
-	const validate = () => {
-		const newErrors: Partial<EmployeeFormData> = {};
-		if (!formData.firstName) newErrors.firstName = "First Name is required";
-		if (!formData.lastName) newErrors.lastName = "Last Name is required";
-		if (!formData.dateOfBirth)
-			newErrors.dateOfBirth = "Date of Birth is required";
-		if (!formData.startDate) newErrors.startDate = "Start Date is required";
-		if (!formData.street) newErrors.street = "Street is required";
-		if (!formData.city) newErrors.city = "City is required";
-		if (!formData.state) newErrors.state = "State is required";
-		if (!formData.zipCode) newErrors.zipCode = "Zip Code is required";
-		if (!formData.department) newErrors.department = "Department is required";
-		return newErrors;
-	};
-
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const newErrors = validate();
+		const newErrors = validate(formData);
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
 		} else {
@@ -87,7 +73,7 @@ const EmployeeForm: React.FC = () => {
 							name='firstName'
 							rules={{ required: true, message: "First Name is required" }}
 							error={errors.firstName}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
 						/>
 						<FormField
 							label='Last Name'
@@ -98,7 +84,7 @@ const EmployeeForm: React.FC = () => {
 							name='lastName'
 							rules={{ required: true, message: "Last Name is required" }}
 							error={errors.lastName}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
 						/>
 						<FormField
 							label='Date of Birth'
@@ -109,7 +95,7 @@ const EmployeeForm: React.FC = () => {
 							name='dateOfBirth'
 							rules={{ required: true, message: "Date of Birth is required" }}
 							error={errors.dateOfBirth}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
 						/>
 						<FormField
 							label='Start Date'
@@ -120,7 +106,7 @@ const EmployeeForm: React.FC = () => {
 							name='startDate'
 							rules={{ required: true, message: "Start Date is required" }}
 							error={errors.startDate}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
 						/>
 						<FormField
 							label='Department'
@@ -137,13 +123,13 @@ const EmployeeForm: React.FC = () => {
 							name='department'
 							rules={{ required: true, message: "Department is required" }}
 							error={errors.department}
-							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
+							inputClassName='outline-none border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
 						/>
 					</div>
 					<div className='w-full md:w-1/2 px-4 space-y-4'>
 						<AddressFieldSet
 							className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700'
-							inputClassName='border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500'
+							inputClassName='border-2 border-gray-300 dark:border-gray-700 rounded-md p-2 focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500'
 							street={formData.street}
 							city={formData.city}
 							state={formData.state}
@@ -169,7 +155,7 @@ const EmployeeForm: React.FC = () => {
 				</div>
 				<Button
 					type='submit'
-					className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105'
+					className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out'
 				>
 					Save
 				</Button>
