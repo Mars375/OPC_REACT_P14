@@ -3,14 +3,9 @@
 @tailwind utilities;
 
 body {
-	@apply bg-background text-text; /* Appliquer les couleurs de fond et de texte */
 	font-family: "Inter", sans-serif;
 }
 
 .container {
 	@apply max-w-4xl mx-auto;
-}
-
-.error {
-	@apply text-error text-xs italic;
 }

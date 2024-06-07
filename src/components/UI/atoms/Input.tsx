@@ -20,7 +20,7 @@ const Input: React.FC<InputProps> = ({
 	return (
 		<input
 			{...rest}
-			className={`${baseClasses} ${colorClass} ${sizeClass} w-full border rounded-md dark:bg-background dark:text-text ${className}`}
+			className={`${baseClasses} ${colorClass} ${sizeClass} w-full ${className}`}
 		/>
 	);
 };

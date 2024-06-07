@@ -24,7 +24,7 @@ const Select: React.FC<SelectProps> = ({
 		<select
 			id={id}
 			{...rest}
-			className={`${baseClasses} ${colorClass} ${sizeClass} w-full border rounded-md dark:bg-background dark:text-text ${className}`}
+			className={`${baseClasses} ${colorClass} ${sizeClass} w-full ${className}`}
 		>
 			{options.map((option) => (
 				<option key={option.value} value={option.value}>
