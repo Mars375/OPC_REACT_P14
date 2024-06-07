@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import FormField from "../molecules/FormField";
 import AddressFieldSet from "../molecules/AddressFieldSet";
 import Button from "../atoms/Button";
 import { validate } from "@/utils/validation";
+import EmployeeContext from "@/context/EmployeeContext";
 
 export interface EmployeeFormData {
 	firstName: string;
@@ -17,6 +18,7 @@ export interface EmployeeFormData {
 }
 
 const EmployeeForm: React.FC = () => {
+	const { addEmployee } = useContext(EmployeeContext);
 	const [formData, setFormData] = useState<EmployeeFormData>({
 		firstName: "",
 		lastName: "",
@@ -51,9 +53,7 @@ const EmployeeForm: React.FC = () => {
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
 		} else {
-			const employees = JSON.parse(localStorage.getItem("employees") || "[]");
-			employees.push(formData);
-			localStorage.setItem("employees", JSON.stringify(employees));
+			addEmployee(formData);
 			setShowConfirmation(true);
 		}
 	};
@@ -160,7 +160,6 @@ const EmployeeForm: React.FC = () => {
 					Save
 				</Button>
 			</form>
-
 			{showConfirmation && (
 				<div
 					id='confirmation'
@@ -172,5 +171,4 @@ const EmployeeForm: React.FC = () => {
 		</div>
 	);
 };
-
 export default EmployeeForm;
