@@ -1,25 +1,32 @@
 import React from "react";
 import { useTheme } from "@/hooks/useTheme";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 const ThemeToggle: React.FC = () => {
 	const { theme, toggleTheme } = useTheme();
 
 	return (
 		<div className='flex items-center'>
-			<span className='mr-2 text-gray-900 dark:text-gray-100'>Light</span>
 			<button
 				onClick={toggleTheme}
-				className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-300 ease-in-out ${
-					theme === "dark" ? "bg-yellow-500" : "bg-gray-300"
+				className={`relative inline-flex items-center h-8 w-16 rounded-full p-1 transition-colors duration-300 ease-in-out ${
+					theme === "dark" ? "bg-blue-600" : "bg-gray-300"
 				}`}
 			>
 				<span
-					className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-300 ease-in-out ${
-						theme === "dark" ? "translate-x-6" : "translate-x-1"
+					className={`absolute inset-y-0 left-0 flex items-center justify-center w-6 h-6 transform bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out ${
+						theme === "dark" ? "translate-x-8" : "translate-x-0"
 					}`}
-				/>
+				>
+					<FontAwesomeIcon
+						icon={theme === "dark" ? faMoon : faSun}
+						className={`text-yellow-500 transition-transform duration-300 ease-in-out ${
+							theme === "dark" ? "rotate-180" : "rotate-0"
+						}`}
+					/>
+				</span>
 			</button>
-			<span className='ml-2 text-gray-900 dark:text-gray-100'>Dark</span>
 		</div>
 	);
 };
