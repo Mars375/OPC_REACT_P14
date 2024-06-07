@@ -18,7 +18,11 @@ export interface EmployeeFormData {
 }
 
 const EmployeeForm: React.FC = () => {
-	const { addEmployee } = useContext(EmployeeContext);
+	const employeeContext = useContext(EmployeeContext);
+	if (!employeeContext) {
+		throw new Error("EmployeeContext not available");
+	}
+	const { addEmployee } = employeeContext;
 	const [formData, setFormData] = useState<EmployeeFormData>({
 		firstName: "",
 		lastName: "",
