@@ -8,9 +8,9 @@ interface GeneralTemplateProps {
 
 const GeneralTemplate: React.FC<GeneralTemplateProps> = ({ children }) => {
 	return (
-		<div className='flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100'>
+		<div className='flex flex-col min-h-screen bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100'>
 			<Header />
-			<main className='container mx-auto p-6 flex-grow bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100'>
+			<main className='container mx-auto p-6 flex-grow dark:text-gray-100 flex justify-center items-center'>
 				{children}
 			</main>
 			<Footer />
