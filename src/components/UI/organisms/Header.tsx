@@ -1,10 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ThemeToggle from "@atoms/ThemeToggle";
 
 const Header: React.FC = () => {
 	return (
-		<header className='bg-primary dark:bg-primary-900 text-white dark:text-gray-200 p-4 flex justify-between items-center'>
-			<h1 className='text-2xl font-bold'>HRnet</h1>
+		<header className='bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4 flex justify-between items-center shadow-md'>
+			<div className='flex items-center space-x-4'>
+				<h1 className='text-2xl font-bold'>HRnet</h1>
+				<nav>
+					<Link
+						to='/employee-list'
+						className='text-blue-500 dark:text-yellow-500 hover:underline'
+					>
+						View Current Employees
+					</Link>
+				</nav>
+			</div>
 			<ThemeToggle />
 		</header>
 	);

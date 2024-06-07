@@ -7,7 +7,7 @@ const ThemeToggle: React.FC = () => {
 	return (
 		<button
 			onClick={toggleTheme}
-			className='relative bg-primary dark:bg-primary-900 text-white dark:text-gray-200 rounded-full p-2'
+			className='relative text-white dark:text-gray-200 rounded-full p-2'
 		>
 			<span
 				className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out ${
