@@ -1,11 +1,18 @@
-import React, { useState, ReactNode } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import EmployeeContext from "@/context/EmployeeContext";
 import { EmployeeFormData } from "@organisms/EmployeeForm";
 
 export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	const [employees, setEmployees] = useState<EmployeeFormData[]>([]);
+	const [employees, setEmployees] = useState<EmployeeFormData[]>(() => {
+		const savedEmployees = localStorage.getItem("employees");
+		return savedEmployees ? JSON.parse(savedEmployees) : [];
+	});
+
+	useEffect(() => {
+		localStorage.setItem("employees", JSON.stringify(employees));
+	}, [employees]);
 
 	const addEmployee = (employee: EmployeeFormData) => {
 		setEmployees([...employees, employee]);
