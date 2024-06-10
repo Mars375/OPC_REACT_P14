@@ -1,22 +1,21 @@
-export const baseClasses = "px-4 py-2 rounded transition-colors duration-200";
-
-export const colorClasses = {
-	primary: "bg-primary text-white dark:bg-dark-primary",
-	secondary: "bg-secondary text-white dark:bg-dark-secondary",
-	error: "bg-error text-white dark:bg-dark-error",
-	warning: "bg-warning text-white dark:bg-dark-warning",
-	info: "bg-blue-500 text-white dark:bg-dark-info",
-	success: "bg-success text-white dark:bg-dark-success",
-};
-
-export const variantClasses = {
-	text: "bg-transparent",
-	outlined: "border",
-	contained: "shadow",
-};
-
-export const sizeClasses = {
-	small: "text-sm",
-	medium: "text-base",
-	large: "text-lg",
+export const buttonStyles = {
+	base: "px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50",
+	color: {
+		primary: "bg-blue-500 text-white",
+		secondary: "bg-gray-500 text-white",
+		error: "bg-red-500 text-white",
+		warning: "bg-yellow-500 text-black",
+		info: "bg-blue-300 text-white",
+		success: "bg-green-500 text-white",
+	},
+	variant: {
+		text: "bg-transparent",
+		outlined: "border-2",
+		contained: "shadow-md",
+	},
+	size: {
+		small: "text-sm",
+		medium: "text-base",
+		large: "text-lg",
+	},
 };
