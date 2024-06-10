@@ -13,26 +13,28 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({
-	color = "primary",
-	variant = "contained",
-	size = "medium",
-	children,
-	className,
-	...rest
-}) => {
-	const colorClass = colorClasses[color];
-	const variantClass = variantClasses[variant];
-	const sizeClass = sizeClasses[size];
+const Button: React.FC<ButtonProps> = React.memo(
+	({
+		color = "primary",
+		variant = "contained",
+		size = "medium",
+		children,
+		className,
+		...rest
+	}) => {
+		const colorClass = colorClasses[color];
+		const variantClass = variantClasses[variant];
+		const sizeClass = sizeClasses[size];
 
-	return (
-		<button
-			{...rest}
-			className={`${baseClasses} ${colorClass} ${variantClass} ${sizeClass} ${className}`}
-		>
-			{children}
-		</button>
-	);
-};
+		return (
+			<button
+				{...rest}
+				className={`${baseClasses} ${colorClass} ${variantClass} ${sizeClass} ${className}`}
+			>
+				{children}
+			</button>
+		);
+	}
+);
 
 export default Button;
