@@ -7,18 +7,7 @@ import { fieldRules } from "@/config/formRules";
 import { departmentOptions } from "@/config/departmentOptions";
 import ConfirmationMessage from "@atoms/ConfirmationMessage";
 import EmployeeContext from "@/context/EmployeeContext";
-
-export interface EmployeeFormData {
-	firstName: string;
-	lastName: string;
-	dateOfBirth: string;
-	startDate: string;
-	street: string;
-	city: string;
-	state: string;
-	zipCode: string;
-	department: string;
-}
+import { EmployeeFormData } from "@/types/employeeTypes";
 
 const EmployeeForm: React.FC = () => {
 	const context = useContext(EmployeeContext);
