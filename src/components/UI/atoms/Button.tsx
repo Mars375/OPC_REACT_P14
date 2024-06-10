@@ -4,6 +4,7 @@ import { buttonStyles } from "@/styles/buttonStyles";
 
 const Button: React.FC<ButtonProps> = React.memo(
 	({
+		type = "button",
 		color = "primary",
 		variant = "contained",
 		size = "medium",
@@ -17,8 +18,9 @@ const Button: React.FC<ButtonProps> = React.memo(
 
 		return (
 			<button
-				{...rest}
+				type={type}
 				className={`${buttonStyles.base} ${colorClass} ${variantClass} ${sizeClass} ${className}`}
+				{...rest}
 			>
 				{children}
 			</button>
