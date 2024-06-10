@@ -3,6 +3,13 @@ import { useTheme } from "@/hooks/useTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * ThemeToggle component allows users to switch between light and dark themes.
+ * It uses FontAwesome icons to represent the sun (light theme) and moon (dark theme).
+ * This component is typically used in the header or settings menu of the application.
+ *
+ * @returns {React.ReactElement} A button that toggles the theme.
+ */
 const ThemeToggle: React.FC = () => {
 	const { theme, toggleTheme } = useTheme();
 
