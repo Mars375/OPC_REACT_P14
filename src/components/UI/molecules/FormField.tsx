@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { FormFieldProps } from "@/types/FormFieldTypes"; // Assurez-vous que le chemin d'importation est correct
 import Input from "@atoms/Input";
 import Label from "@atoms/Label";
 import Select from "@atoms/Select";
 
-interface Rule {
-	required?: boolean;
-	message?: string;
-}
-
-interface FormFieldProps {
-	label: string;
-	id: string;
-	type?: string; // 'text', 'number', 'email', etc.
-	error?: string;
-	options?: { value: string; label: string }[]; // Pour le Select
-	className?: string;
-	inputClassName?: string; // Pour personnaliser l'input/select
-	value?: string;
-	name?: string;
-	rules?: Rule; // Ajout de la prop rules
-	onChange?: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void; // Ajout de la prop onChange
-}
+/**
+ * FormField component that wraps input elements like Input and Select with label and error handling.
+ * It provides a consistent interface for form fields, including validation feedback.
+ *
+ * @param {FormFieldProps} props - Props for FormField component
+ * @param {string} props.label - Label text for the form field.
+ * @param {string} props.id - Unique identifier for the form field.
+ * @param {string} [props.type='text'] - Type of the input, defaults to 'text'.
+ * @param {string} [props.error] - Error message to display when validation fails.
+ * @param {Array<{value: string; label: string}>} [props.options] - Options for the select element, if applicable.
+ * @param {string} [props.className] - Additional CSS classes for styling the form field container.
+ * @param {string} [props.inputClassName] - Additional CSS classes for styling the input or select element.
+ * @param {string} [props.value] - Controlled value of the input or select.
+ * @param {string} [props.name] - Name attribute for the input or select.
+ * @param {Rule} [props.rules] - Validation rules for the input or select.
+ * @param {(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void} [props.onChange] - Change handler for the input or select.
+ * @returns {React.ReactElement} A styled form field with label and optional error message.
+ */
 
 const FormField: React.FC<FormFieldProps> = ({
 	label,
