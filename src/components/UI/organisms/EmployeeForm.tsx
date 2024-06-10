@@ -152,7 +152,11 @@ const EmployeeForm: React.FC = () => {
 				</Button>
 			</form>
 
-			{showConfirmation && <ConfirmationMessage message='Employee Created!' />}
+			{showConfirmation && (
+				<ConfirmationMessage
+					message={{ text: "Employee Created!", type: "success" }}
+				/>
+			)}
 		</div>
 	);
 };

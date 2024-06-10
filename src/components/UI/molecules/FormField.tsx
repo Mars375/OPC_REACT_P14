@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FormFieldProps } from "@/types/FormFieldTypes"; // Assurez-vous que le chemin d'importation est correct
+import { FormFieldProps } from "@/types/formFieldTypes"; // Assurez-vous que le chemin d'importation est correct
 import Input from "@atoms/Input";
 import Label from "@atoms/Label";
 import Select from "@atoms/Select";
