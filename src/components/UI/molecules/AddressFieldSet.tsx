@@ -1,38 +1,26 @@
 import React from "react";
 import FormField from "./FormField";
+import { AddressFieldSetProps } from "@/types/addressFieldSetTypes";
 
-interface AddressFieldSetProps {
-	className?: string;
-	inputClassName?: string;
-	street: string;
-	city: string;
-	state: string;
-	zipCode: string;
-	onStreetChange: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void;
-	onCityChange: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void;
-	onStateChange: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void;
-	onZipCodeChange: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void;
-	rules?: {
-		street?: { required: boolean; message: string };
-		city?: { required: boolean; message: string };
-		state?: { required: boolean; message: string };
-		zipCode?: { required: boolean; message: string };
-	};
-	errors?: {
-		street?: string;
-		city?: string;
-		state?: string;
-		zipCode?: string;
-	};
-}
+/**
+ * AddressFieldSet component that groups multiple address-related fields.
+ * It provides a consistent interface for capturing user address information.
+ *
+ * @param {AddressFieldSetProps} props - Props for AddressFieldSet component
+ * @param {string} props.className - Additional CSS classes for styling the fieldset container.
+ * @param {string} props.inputClassName - Additional CSS classes for styling the input elements.
+ * @param {string} props.street - Street address value.
+ * @param {string} props.city - City name value.
+ * @param {string} props.state - State name value.
+ * @param {string} props.zipCode - Zip code value.
+ * @param {Function} props.onStreetChange - Handler for changes to the street input.
+ * @param {Function} props.onCityChange - Handler for changes to the city input.
+ * @param {Function} props.onStateChange - Handler for changes to the state select.
+ * @param {Function} props.onZipCodeChange - Handler for changes to the zip code input.
+ * @param {Object} props.rules - Validation rules for the inputs.
+ * @param {Object} props.errors - Error messages for the inputs.
+ * @returns {React.ReactElement} A styled fieldset grouping address inputs.
+ */
 
 const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 	className,
