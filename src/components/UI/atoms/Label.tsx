@@ -1,10 +1,10 @@
 import React, { LabelHTMLAttributes } from "react";
 
 /**
- * Represents a label for form elements and other UI components.
- * This component is used to provide accessible labels for interactive elements.
+ * Custom label component that can be styled with TailwindCSS.
+ * It is used to provide accessible labels for interactive form elements.
  *
- * @param {Object} props - Props for Label component
+ * @param {LabelProps} props - Props for Label component
  * @param {string} props.text - The text content of the label.
  * @param {string} [props.className] - Additional CSS classes for further customization.
  * @returns {React.ReactElement} A styled label element.
