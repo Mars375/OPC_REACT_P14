@@ -3,11 +3,11 @@ import { AddressFieldProps } from "@/types/addressFieldTypes";
 import FormField from "../molecules/FormField";
 
 /**
- * AddressInput is an atomic component that renders a text input field.
- * It is designed to be reused in various parts of the application where a text input is needed.
+ * Renders a text input field specifically for addresses.
+ * This component is a reusable atomic component that can be used in various parts of the application.
+ * It leverages the FormField molecule for consistent form field behavior and styling.
  *
- * @param {AddressFieldProps} props - Props for AddressInput component
- * @returns {React.ReactElement} A styled input field.
+ * @param {AddressFieldProps} props - The properties passed to the address input component.
  */
 const AddressInput: React.FC<AddressFieldProps> = ({
 	label,
@@ -30,4 +30,5 @@ const AddressInput: React.FC<AddressFieldProps> = ({
 		/>
 	);
 };
+
 export default AddressInput;
