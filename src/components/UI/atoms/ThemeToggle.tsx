@@ -7,17 +7,18 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
  * ThemeToggle component allows users to switch between light and dark themes.
  * It uses FontAwesome icons to represent the sun (light theme) and moon (dark theme).
  * This component is typically used in the header or settings menu of the application.
+ * Smooth transitions are applied to enhance the user interaction experience.
  *
- * @returns {React.ReactElement} A button that toggles the theme.
+ * @returns {React.ReactElement} A button that toggles the theme, with visual feedback for the current state.
  */
-const ThemeToggle: React.FC = () => {
+const ThemeToggle: React.FC = React.memo(() => {
 	const { theme, toggleTheme } = useTheme();
 
 	return (
 		<div className='flex items-center'>
 			<button
 				onClick={toggleTheme}
-				className={`relative inline-flex items-center h-8 w-16 rounded-full p-1 transition-colors duration-300 ease-in-out ${
+				className={`relative inline-flex items-center h-8 w-16 rounded-full p-1 transition-colors duration-300 ease-in-out hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
 					theme === "dark" ? "bg-gray-800" : "bg-gray-300"
 				}`}
 			>
@@ -36,6 +37,6 @@ const ThemeToggle: React.FC = () => {
 			</button>
 		</div>
 	);
-};
+});
 
 export default ThemeToggle;
