@@ -2,7 +2,10 @@ import React, { useState, useContext } from "react";
 import FormField from "../molecules/FormField";
 import AddressFieldSet from "../molecules/AddressFieldSet";
 import Button from "../atoms/Button";
-import { validate } from "@/utils/validation";
+import { validate } from "@/utils/formValidation";
+import { fieldRules } from "@/config/formRules";
+import { departmentOptions } from "@/config/departmentOptions";
+import ConfirmationMessage from "@atoms/ConfirmationMessage";
 import EmployeeContext from "@/context/EmployeeContext";
 
 export interface EmployeeFormData {
@@ -76,7 +79,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.firstName}
 							onChange={handleChange}
 							name='firstName'
-							rules={{ required: true, message: "First Name is required" }}
+							rules={fieldRules.firstName}
 							error={errors.firstName}
 							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
@@ -87,7 +90,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.lastName}
 							onChange={handleChange}
 							name='lastName'
-							rules={{ required: true, message: "Last Name is required" }}
+							rules={fieldRules.lastName}
 							error={errors.lastName}
 							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
@@ -98,7 +101,7 @@ const EmployeeForm: React.FC = () => {
 							value={formData.dateOfBirth}
 							onChange={handleChange}
 							name='dateOfBirth'
-							rules={{ required: true, message: "Date of Birth is required" }}
+							rules={fieldRules.dateOfBirth}
 							error={errors.dateOfBirth}
 							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
@@ -109,24 +112,18 @@ const EmployeeForm: React.FC = () => {
 							value={formData.startDate}
 							onChange={handleChange}
 							name='startDate'
-							rules={{ required: true, message: "Start Date is required" }}
+							rules={fieldRules.startDate}
 							error={errors.startDate}
 							inputClassName='outline-none border-2 border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
 						<FormField
 							label='Department'
 							id='department'
-							options={[
-								{ value: "Sales", label: "Sales" },
-								{ value: "Marketing", label: "Marketing" },
-								{ value: "Engineering", label: "Engineering" },
-								{ value: "Human Resources", label: "Human Resources" },
-								{ value: "Legal", label: "Legal" },
-							]}
+							options={departmentOptions}
 							value={formData.department}
 							onChange={handleChange}
 							name='department'
-							rules={{ required: true, message: "Department is required" }}
+							rules={fieldRules.department}
 							error={errors.department}
 							inputClassName='outline-none border-2 border-gray dark:border-gray dark:border-gray-dark rounded-md p-2 focus:ring-2 focus:ring-primary dark:focus:ring-secondary'
 						/>
@@ -144,10 +141,10 @@ const EmployeeForm: React.FC = () => {
 							onStateChange={handleChange}
 							onZipCodeChange={handleChange}
 							rules={{
-								street: { required: true, message: "Street is required" },
-								city: { required: true, message: "City is required" },
-								state: { required: true, message: "State is required" },
-								zipCode: { required: true, message: "Zip Code is required" },
+								street: fieldRules.street,
+								city: fieldRules.city,
+								state: fieldRules.state,
+								zipCode: fieldRules.zipCode,
 							}}
 							errors={{
 								street: errors.street,
@@ -166,14 +163,7 @@ const EmployeeForm: React.FC = () => {
 				</Button>
 			</form>
 
-			{showConfirmation && (
-				<div
-					id='confirmation'
-					className='mt-4 p-4 bg-success-light text-success rounded-md'
-				>
-					Employee Created!
-				</div>
-			)}
+			{showConfirmation && <ConfirmationMessage message='Employee Created!' />}
 		</div>
 	);
 };

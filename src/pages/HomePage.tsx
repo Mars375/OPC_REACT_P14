@@ -1,6 +1,6 @@
 import React from "react";
-import GeneralTemplate from "@templates/GeneralTemplate";
-import CreateEmployeeTemplate from "@templates/CreateEmployeeTemplate";
+import GeneralTemplate from "@/components/templates/GeneralTemplate";
+import CreateEmployeeTemplate from "@/components/templates/CreateEmployeeTemplate";
 
 const HomePage: React.FC = () => {
 	return (
