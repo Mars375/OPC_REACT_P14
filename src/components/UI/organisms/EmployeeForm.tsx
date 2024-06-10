@@ -9,6 +9,15 @@ import ConfirmationMessage from "@atoms/ConfirmationMessage";
 import EmployeeContext from "@/context/EmployeeContext";
 import { EmployeeFormData } from "@/types/employeeTypes";
 
+/**
+ * EmployeeForm component for creating new employee records.
+ * This form includes fields for personal details, address, and department.
+ * It validates input and shows a confirmation message upon successful submission.
+ *
+ *
+ * @returns {React.ReactElement} A form for entering employee details.
+ */
+
 const EmployeeForm: React.FC = () => {
 	const context = useContext(EmployeeContext);
 	if (!context) {
