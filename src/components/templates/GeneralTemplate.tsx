@@ -10,6 +10,7 @@ interface GeneralTemplateProps {
  * A general layout template that includes a header, footer, and a main content area.
  * This template is used throughout the application to maintain a consistent layout structure.
  */
+
 const GeneralTemplate: React.FC<GeneralTemplateProps> = React.memo(
 	({ children }) => {
 		return (
