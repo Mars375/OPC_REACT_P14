@@ -7,8 +7,11 @@ interface GeneralTemplateProps {
 }
 
 /**
- * A general layout template that includes a header, footer, and a main content area.
- * This template is used throughout the application to maintain a consistent layout structure.
+ * General layout template for the application.
+ * This component wraps the content with a Header and a Footer, providing a consistent layout structure.
+ * It uses TailwindCSS for styling to ensure responsiveness and style consistency.
+ *
+ * @param {React.ReactNode} children - The content to be displayed between the header and footer.
  */
 
 const GeneralTemplate: React.FC<GeneralTemplateProps> = React.memo(
