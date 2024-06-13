@@ -1,13 +1,5 @@
 import React from "react";
 
-/**
- * Displays a confirmation message with a styled background.
- * This component is typically used to show feedback to users after certain actions, such as successful form submission or data processing.
- *
- * @param {Object} props - Props for ConfirmationMessage
- * @param {string} props.message - The message text to be displayed.
- * @returns {React.ReactElement} A styled div element containing the message.
- */
 interface ConfirmationMessageProps {
 	message: {
 		text: string;

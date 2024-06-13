@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import EmployeeContext from "@/context/EmployeeContext";
-import { EmployeeFormData } from "@organisms/EmployeeForm";
+import { EmployeeFormData } from "@/types/employeeTypes";
 
 export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
 	children,

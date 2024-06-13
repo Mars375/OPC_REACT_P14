@@ -1,18 +1,10 @@
 import React from "react";
-import Header from "@organisms/Header";
-import Footer from "@organisms/Footer";
+import Header from "@/components/UI/organisms/Header";
+import Footer from "@/components/UI/organisms/Footer";
 
 interface GeneralTemplateProps {
 	children: React.ReactNode;
 }
-
-/**
- * General layout template for the application.
- * This component wraps the content with a Header and a Footer, providing a consistent layout structure.
- * It uses TailwindCSS for styling to ensure responsiveness and style consistency.
- *
- * @param {React.ReactNode} children - The content to be displayed between the header and footer.
- */
 
 const GeneralTemplate: React.FC<GeneralTemplateProps> = React.memo(
 	({ children }) => {

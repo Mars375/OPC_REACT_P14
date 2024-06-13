@@ -6,15 +6,15 @@ export interface Rule {
 export interface FormFieldProps {
 	label: string;
 	id: string;
-	type?: string; // 'text', 'number', 'email', etc.
+	type?: "text" | "number" | "email" | "password" | "date";
 	error?: string;
-	options?: { value: string; label: string }[]; // Pour le Select
+	options?: { value: string; label: string }[];
 	className?: string;
-	inputClassName?: string; // Pour personnaliser l'input/select
+	inputClassName?: string;
 	value?: string;
 	name?: string;
-	rules?: Rule; // Ajout de la prop rules
+	rules?: Rule;
 	onChange?: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void; // Ajout de la prop onChange
+	) => void;
 }

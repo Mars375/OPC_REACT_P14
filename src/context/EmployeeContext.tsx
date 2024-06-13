@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { EmployeeFormData } from "@/components/UI/organisms/EmployeeForm";
+import { EmployeeFormData } from "@/types/employeeTypes";
 
 interface EmployeeContextProps {
 	employees: EmployeeFormData[];

@@ -1,10 +1,5 @@
 import React from "react";
-import EmployeeForm from "@organisms/EmployeeForm";
-
-/**
- * Template component for creating an employee.
- * Utilizes TailwindCSS for styling to maintain consistency and responsiveness.
- */
+import EmployeeForm from "@/components/UI/organisms/EmployeeForm";
 
 const CreateEmployeeTemplate: React.FC = () => {
 	return (

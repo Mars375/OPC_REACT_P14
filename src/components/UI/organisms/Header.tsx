@@ -1,13 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ThemeToggle from "@atoms/ThemeToggle";
+import ThemeToggle from "../atoms/ThemeToggle";
 
-/**
- * Header component that includes navigation links, a logo, and a theme toggle button.
- * It provides top-level navigation and branding for the application.
- *
- * @returns {React.ReactElement} A header element with navigation and theme toggle functionality.
- */
 const Header: React.FC = () => {
 	return (
 		<header className='bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4 flex justify-between items-center shadow-md'>
