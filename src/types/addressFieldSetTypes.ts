@@ -18,10 +18,10 @@ export interface AddressFieldSetProps {
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
 	rules?: {
-		street?: { required: boolean; message: string };
-		city?: { required: boolean; message: string };
-		state?: { required: boolean; message: string };
-		zipCode?: { required: boolean; message: string };
+		street?: { required: string; pattern: { value: RegExp; message: string } };
+		city?: { required: string; pattern: { value: RegExp; message: string } };
+		state?: { required: string };
+		zipCode?: { required: string; pattern: { value: RegExp; message: string } };
 	};
 	errors?: {
 		street?: string;

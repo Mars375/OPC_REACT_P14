@@ -24,7 +24,29 @@ const FormField: React.FC<FormFieldProps> = ({
 
 	const handleBlur = () => {
 		if (rules?.required && !value) {
-			setFieldError(rules.message || "This field is required");
+			setFieldError(rules.required);
+		} else if (
+			rules?.pattern &&
+			value &&
+			!new RegExp(rules.pattern.value).test(value.toString())
+		) {
+			setFieldError(rules.pattern.message);
+		} else {
+			setFieldError(undefined);
+		}
+	};
+
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) => {
+		onChange?.(e);
+		const newValue = e.target.value;
+		if (
+			rules?.pattern &&
+			newValue &&
+			!new RegExp(rules.pattern.value).test(newValue.toString())
+		) {
+			setFieldError(rules.pattern.message);
 		} else {
 			setFieldError(undefined);
 		}
@@ -38,7 +60,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			value={value}
 			name={name}
 			onBlur={handleBlur}
-			onChange={onChange}
+			onChange={handleChange}
 			{...rest}
 		/>
 	) : (
@@ -49,7 +71,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			value={value}
 			name={name}
 			onBlur={handleBlur}
-			onChange={onChange}
+			onChange={handleChange}
 			{...rest}
 		/>
 	);

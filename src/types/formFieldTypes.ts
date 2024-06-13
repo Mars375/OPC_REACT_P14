@@ -1,6 +1,9 @@
 export interface Rule {
-	required?: boolean;
-	message?: string;
+	required?: string;
+	pattern?: {
+		value: RegExp;
+		message: string;
+	};
 }
 
 export interface FormFieldProps {

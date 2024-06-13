@@ -2,6 +2,7 @@ import React from "react";
 import FormField from "./FormField";
 import { AddressFieldSetProps } from "@/types/addressFieldSetTypes";
 import { states } from "@/utils/states";
+import { fieldRules } from "@/config/fieldRules";
 
 const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 	className,
@@ -14,7 +15,6 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 	onCityChange,
 	onStateChange,
 	onZipCodeChange,
-	rules,
 	errors,
 }) => {
 	return (
@@ -27,7 +27,7 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				value={street}
 				onChange={onStreetChange}
 				name='street'
-				rules={rules?.street}
+				rules={fieldRules.street}
 				error={errors?.street}
 				inputClassName={inputClassName}
 			/>
@@ -38,7 +38,7 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				value={city}
 				onChange={onCityChange}
 				name='city'
-				rules={rules?.city}
+				rules={fieldRules.city}
 				error={errors?.city}
 				inputClassName={inputClassName}
 			/>
@@ -49,7 +49,7 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				value={state}
 				onChange={onStateChange}
 				name='state'
-				rules={rules?.state}
+				rules={fieldRules.state}
 				error={errors?.state}
 				inputClassName={inputClassName}
 			/>
@@ -60,7 +60,7 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				value={zipCode}
 				onChange={onZipCodeChange}
 				name='zipCode'
-				rules={rules?.zipCode}
+				rules={fieldRules.zipCode}
 				error={errors?.zipCode}
 				inputClassName={inputClassName}
 			/>
