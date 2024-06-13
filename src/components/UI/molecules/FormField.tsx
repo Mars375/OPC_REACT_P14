@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FormFieldProps } from "@/types/formFieldTypes";
-import Input from "../atoms/Input";
-import Label from "../atoms/Label";
-import Select from "../atoms/Select";
+import { Input, Label, Select } from "@/components/UI/atoms";
 
 const FormField: React.FC<FormFieldProps> = ({
 	label,
