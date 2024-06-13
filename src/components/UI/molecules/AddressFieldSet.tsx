@@ -1,6 +1,7 @@
 import React from "react";
 import FormField from "./FormField";
 import { AddressFieldSetProps } from "@/types/addressFieldSetTypes";
+import { states } from "@/utils/states";
 
 const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 	className,
@@ -44,12 +45,7 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 			<FormField
 				label='State'
 				id='state'
-				options={[
-					{ value: "", label: "Select a state" },
-					{ value: "CA", label: "California" },
-					{ value: "NY", label: "New York" },
-					// Ajoutez d'autres options d'état ici
-				]}
+				options={[{ value: "", label: "Select a state" }, ...states]}
 				value={state}
 				onChange={onStateChange}
 				name='state'

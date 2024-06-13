@@ -1,6 +1,6 @@
-import { EmployeeFormData } from "@/components/UI/organisms/EmployeeForm";
 import { FieldRules } from "@/types/formTypes";
 import { fieldRules } from "@/config/formRules";
+import { EmployeeFormData } from "@/types/employeeTypes";
 
 export const validate = (
 	formData: EmployeeFormData

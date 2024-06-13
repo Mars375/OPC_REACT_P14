@@ -161,7 +161,6 @@ const EmployeeForm: React.FC = () => {
 
 export default EmployeeForm;
 
-// TODO : Erase JSDoc and add more rules for the form
 // TODO : Add the ability to reset the form
 // TODO : Add some regex for the form
 // TODO : Do the next page
