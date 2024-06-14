@@ -144,5 +144,4 @@ const EmployeeForm: React.FC = () => {
 
 export default EmployeeForm;
 
-// TODO : Add some regex for the form
 // TODO : Do the next page
