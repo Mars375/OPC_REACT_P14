@@ -11,6 +11,7 @@ const FormField: React.FC<FormFieldProps> = ({
 	className,
 	inputClassName,
 	value,
+	placeholder,
 	name,
 	rules,
 	onChange,
@@ -59,6 +60,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			className={inputClassName}
 			value={value}
 			name={name}
+			placeholder={placeholder}
 			onBlur={handleBlur}
 			onChange={handleChange}
 			{...rest}
@@ -70,6 +72,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			className={inputClassName}
 			value={value}
 			name={name}
+			placeholder={placeholder}
 			onBlur={handleBlur}
 			onChange={handleChange}
 			{...rest}

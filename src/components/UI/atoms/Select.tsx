@@ -1,4 +1,5 @@
 import React, { SelectHTMLAttributes } from "react";
+import { inputStyles } from "@/styles/inputStyles";
 
 interface SelectProps
 	extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> {
@@ -6,6 +7,7 @@ interface SelectProps
 	color?: "primary" | "secondary" | "error" | "warning" | "info" | "success";
 	size?: "small" | "medium" | "large";
 	className?: string;
+	placeholder?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -13,18 +15,23 @@ const Select: React.FC<SelectProps> = ({
 	color = "primary",
 	size = "medium",
 	className,
+	placeholder,
 	...rest
 }) => {
-	const colorClass = `bg-${color}-500 text-white`;
-	const sizeClass =
-		size === "large" ? "p-4" : size === "medium" ? "p-3" : "p-2";
+	const colorClass = inputStyles.color(color);
+	const sizeClass = inputStyles.size[size];
 	const transitionClass = "transition ease-in-out duration-300";
 
 	return (
 		<select
 			{...rest}
-			className={`${colorClass} ${sizeClass} ${transitionClass} w-full rounded-md ${className} focus:ring-2 focus:ring-${color}-300`}
+			className={`${inputStyles.base} ${colorClass} ${sizeClass} ${transitionClass} ${className}`}
 		>
+			{placeholder && (
+				<option value='' disabled>
+					{placeholder}
+				</option>
+			)}
 			{options.map((option) => (
 				<option key={option.value} value={option.value}>
 					{option.label}

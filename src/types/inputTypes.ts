@@ -5,4 +5,5 @@ export interface InputProps
 	color?: "primary" | "secondary" | "error" | "warning" | "info" | "success";
 	size?: "small" | "medium" | "large";
 	className?: string;
+	placeholder?: string;
 }

@@ -20,4 +20,5 @@ export interface FormFieldProps {
 	onChange?: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
+	placeholder?: string;
 }
