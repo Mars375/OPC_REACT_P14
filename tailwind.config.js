@@ -20,14 +20,6 @@ export default {
           darker: '#1f2937', // dark:bg-gray-darker
           darkest: '#111827', // text-gray-darkest
         },
-        success: {
-          background: '#d1fae5', // bg-success-light
-          text: '#047857', // text-success
-        },
-        error: {
-          text: '#dc2626', // text-error
-          background: '#fee2e2', // bg-error
-        },
         white: '#ffffff', // bg-white, text-white
         black: '#000000', // text-black
       },

@@ -11,10 +11,10 @@ const FormField: React.FC<FormFieldProps> = ({
 	className,
 	inputClassName,
 	value,
-	placeholder,
 	name,
 	rules,
 	onChange,
+	placeholder,
 	...rest
 }) => {
 	const [fieldError, setFieldError] = useState<string | undefined>(error);
@@ -23,17 +23,27 @@ const FormField: React.FC<FormFieldProps> = ({
 		setFieldError(error);
 	}, [error]);
 
-	const handleBlur = () => {
+	const validateField = (value: string, name: string) => {
 		if (rules?.required && !value) {
-			setFieldError(rules.required);
+			return rules.required;
 		} else if (
 			rules?.pattern &&
 			value &&
 			!new RegExp(rules.pattern.value).test(value.toString())
 		) {
-			setFieldError(rules.pattern.message);
-		} else {
-			setFieldError(undefined);
+			return rules.pattern.message;
+		} else if (name === "dateOfBirth" && new Date(value) > new Date()) {
+			return "Date of birth cannot be in the future";
+		} else if (name === "startDate" && new Date(value) < new Date()) {
+			return "Start date cannot be in the past";
+		}
+		return undefined;
+	};
+
+	const handleBlur = () => {
+		if (name) {
+			const error = validateField(value?.toString() || "", name);
+			setFieldError(error);
 		}
 	};
 
@@ -42,14 +52,9 @@ const FormField: React.FC<FormFieldProps> = ({
 	) => {
 		onChange?.(e);
 		const newValue = e.target.value;
-		if (
-			rules?.pattern &&
-			newValue &&
-			!new RegExp(rules.pattern.value).test(newValue.toString())
-		) {
-			setFieldError(rules.pattern.message);
-		} else {
-			setFieldError(undefined);
+		if (name) {
+			const error = validateField(newValue, name);
+			setFieldError(error);
 		}
 	};
 
@@ -60,9 +65,10 @@ const FormField: React.FC<FormFieldProps> = ({
 			className={inputClassName}
 			value={value}
 			name={name}
-			placeholder={placeholder}
 			onBlur={handleBlur}
 			onChange={handleChange}
+			placeholder={placeholder}
+			aria-invalid={!!fieldError}
 			{...rest}
 		/>
 	) : (
@@ -72,9 +78,10 @@ const FormField: React.FC<FormFieldProps> = ({
 			className={inputClassName}
 			value={value}
 			name={name}
-			placeholder={placeholder}
 			onBlur={handleBlur}
 			onChange={handleChange}
+			placeholder={placeholder}
+			aria-invalid={!!fieldError}
 			{...rest}
 		/>
 	);
@@ -83,9 +90,7 @@ const FormField: React.FC<FormFieldProps> = ({
 		<div className={`mb-4 ${className}`}>
 			<Label htmlFor={id} text={label} />
 			{inputElement}
-			{fieldError && (
-				<p className='text-error-text text-sm mt-1'>{fieldError}</p>
-			)}
+			{fieldError && <p className='text-red-500 text-sm mt-1'>{fieldError}</p>}
 		</div>
 	);
 };

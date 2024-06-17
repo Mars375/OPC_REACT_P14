@@ -8,6 +8,8 @@ interface SelectProps
 	size?: "small" | "medium" | "large";
 	className?: string;
 	placeholder?: string;
+	fieldError?: string;
+	id?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -16,16 +18,21 @@ const Select: React.FC<SelectProps> = ({
 	size = "medium",
 	className,
 	placeholder,
+	fieldError,
+	id,
 	...rest
 }) => {
 	const colorClass = inputStyles.color(color);
 	const sizeClass = inputStyles.size[size];
 	const transitionClass = "transition ease-in-out duration-300";
+	const errorClass = fieldError ? "ring-2 ring-red-500" : "";
 
 	return (
 		<select
 			{...rest}
-			className={`${inputStyles.base} ${colorClass} ${sizeClass} ${transitionClass} ${className}`}
+			className={`${inputStyles.base} ${colorClass} ${sizeClass} ${transitionClass} ${errorClass} ${className} focus:ring-2 focus:ring-${color}-300`}
+			aria-invalid={!!fieldError}
+			aria-describedby={fieldError ? `${id}-error` : undefined}
 		>
 			{placeholder && (
 				<option value='' disabled>

@@ -6,4 +6,6 @@ export interface InputProps
 	size?: "small" | "medium" | "large";
 	className?: string;
 	placeholder?: string;
+	fieldError?: string;
+	id?: string;
 }
