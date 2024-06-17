@@ -9,12 +9,13 @@ const FormField: React.FC<FormFieldProps> = ({
 	error,
 	options,
 	className,
-	inputClassName,
 	value,
 	name,
 	rules,
 	onChange,
 	placeholder,
+	color = "primary",
+	size = "medium",
 	...rest
 }) => {
 	const [fieldError, setFieldError] = useState<string | undefined>(error);
@@ -62,26 +63,30 @@ const FormField: React.FC<FormFieldProps> = ({
 		<Select
 			id={id}
 			options={options}
-			className={inputClassName}
 			value={value}
 			name={name}
 			onBlur={handleBlur}
 			onChange={handleChange}
 			placeholder={placeholder}
 			aria-invalid={!!fieldError}
+			fieldError={fieldError}
+			color={color}
+			size={size}
 			{...rest}
 		/>
 	) : (
 		<Input
 			id={id}
 			type={type}
-			className={inputClassName}
 			value={value}
 			name={name}
 			onBlur={handleBlur}
 			onChange={handleChange}
 			placeholder={placeholder}
 			aria-invalid={!!fieldError}
+			fieldError={fieldError}
+			color={color}
+			size={size}
 			{...rest}
 		/>
 	);

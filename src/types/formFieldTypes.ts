@@ -1,3 +1,5 @@
+import { inputStyles } from "@/styles/inputStyles";
+
 export interface Rule {
 	required?: string;
 	pattern?: {
@@ -13,7 +15,6 @@ export interface FormFieldProps {
 	error?: string;
 	options?: { value: string; label: string }[];
 	className?: string;
-	inputClassName?: string;
 	value?: string;
 	name?: string;
 	rules?: Rule;
@@ -21,4 +22,6 @@ export interface FormFieldProps {
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
 	placeholder?: string;
+	color?: keyof typeof inputStyles.color;
+	size?: keyof typeof inputStyles.size;
 }

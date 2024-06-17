@@ -6,7 +6,6 @@ import { fieldRules } from "@/config/fieldRules";
 
 const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 	className,
-	inputClassName,
 	street,
 	city,
 	state,
@@ -16,6 +15,8 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 	onStateChange,
 	onZipCodeChange,
 	errors,
+	color = "primary",
+	size = "medium",
 }) => {
 	return (
 		<div className={className}>
@@ -29,7 +30,8 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				name='street'
 				rules={fieldRules.street}
 				error={errors?.street}
-				inputClassName={inputClassName}
+				color={color}
+				size={size}
 			/>
 			<FormField
 				label='City'
@@ -41,7 +43,8 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				name='city'
 				rules={fieldRules.city}
 				error={errors?.city}
-				inputClassName={inputClassName}
+				color={color}
+				size={size}
 			/>
 			<FormField
 				label='State'
@@ -53,7 +56,8 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				placeholder='Select a state'
 				rules={fieldRules.state}
 				error={errors?.state}
-				inputClassName={inputClassName}
+				color={color}
+				size={size}
 			/>
 			<FormField
 				label='Zip Code'
@@ -65,7 +69,8 @@ const AddressFieldSet: React.FC<AddressFieldSetProps> = ({
 				name='zipCode'
 				rules={fieldRules.zipCode}
 				error={errors?.zipCode}
-				inputClassName={inputClassName}
+				color={color}
+				size={size}
 			/>
 		</div>
 	);

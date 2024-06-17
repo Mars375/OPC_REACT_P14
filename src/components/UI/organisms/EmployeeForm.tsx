@@ -71,7 +71,6 @@ const EmployeeForm: React.FC = () => {
 							placeholder='John'
 							rules={fieldRules.firstName}
 							error={errors.firstName}
-							inputClassName='border border-gray-300 dark:border-gray-700 rounded p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-12'
 						/>
 						<FormField
 							label='Last Name'
@@ -83,7 +82,6 @@ const EmployeeForm: React.FC = () => {
 							placeholder='Doe'
 							rules={fieldRules.lastName}
 							error={errors.lastName}
-							inputClassName='border border-gray-300 dark:border-gray-700 rounded p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-12'
 						/>
 						<FormField
 							label='Date of Birth'
@@ -95,7 +93,6 @@ const EmployeeForm: React.FC = () => {
 							placeholder='1990-01-01'
 							rules={fieldRules.dateOfBirth}
 							error={errors.dateOfBirth}
-							inputClassName='border border-gray-300 dark:border-gray-700 rounded p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-12'
 						/>
 						<FormField
 							label='Start Date'
@@ -107,7 +104,6 @@ const EmployeeForm: React.FC = () => {
 							placeholder='2022-01-01'
 							rules={fieldRules.startDate}
 							error={errors.startDate}
-							inputClassName='border border-gray-300 dark:border-gray-700 rounded p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-12'
 						/>
 						<FormField
 							label='Department'
@@ -119,7 +115,6 @@ const EmployeeForm: React.FC = () => {
 							rules={fieldRules.department}
 							placeholder='Select Department'
 							error={errors.department}
-							inputClassName='border border-gray-300 dark:border-gray-700 rounded p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-12'
 						/>
 					</div>
 					<div className='mt-4'>
@@ -128,7 +123,6 @@ const EmployeeForm: React.FC = () => {
 						</h3>
 						<AddressFieldSet
 							className='grid grid-cols-1 md:grid-cols-2 gap-4'
-							inputClassName='border border-gray-300 dark:border-gray-700 rounded p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-12'
 							street={formData.street}
 							city={formData.city}
 							state={formData.state}

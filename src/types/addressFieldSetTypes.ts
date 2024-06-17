@@ -1,6 +1,7 @@
+import { inputStyles } from "@/styles/inputStyles";
+
 export interface AddressFieldSetProps {
 	className?: string;
-	inputClassName?: string;
 	street: string;
 	city: string;
 	state: string;
@@ -29,4 +30,6 @@ export interface AddressFieldSetProps {
 		state?: string;
 		zipCode?: string;
 	};
+	color?: keyof typeof inputStyles.color;
+	size?: keyof typeof inputStyles.size;
 }

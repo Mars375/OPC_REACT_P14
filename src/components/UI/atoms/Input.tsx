@@ -6,24 +6,22 @@ const Input: React.FC<InputProps> = React.memo(
 	({
 		color = "primary",
 		size = "medium",
-		className,
 		placeholder,
 		fieldError,
-		id,
 		...rest
 	}) => {
-		const colorClass = inputStyles.color(color);
-		const sizeClass = inputStyles.size[size];
+		const colorClass = inputStyles.color[color] || inputStyles.color.primary;
+		const sizeClass = inputStyles.size[size] || inputStyles.size.medium;
+		const errorClass = fieldError ? inputStyles.color.error : "";
+		const baseClass = inputStyles.base;
 		const transitionClass = "transition ease-in-out duration-300";
-		const errorClass = fieldError ? "ring-2 ring-red-500" : "";
 
 		return (
 			<input
 				{...rest}
-				className={`${inputStyles.base} ${colorClass} ${sizeClass} ${transitionClass}${errorClass} ${className}`}
+				className={`${baseClass} ${colorClass} ${sizeClass} ${errorClass} ${transitionClass} `}
 				placeholder={placeholder}
 				aria-invalid={!!fieldError}
-				aria-describedby={fieldError ? `${id}-error` : undefined}
 			/>
 		);
 	}
