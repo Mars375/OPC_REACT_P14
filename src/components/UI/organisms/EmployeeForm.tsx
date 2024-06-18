@@ -54,11 +54,9 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='flex items-center justify-center h-full bg-gray-100 dark:bg-gray-900'>
-			<div className='max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg'>
-				<h2 className='text-2xl font-semibold text-gray-darkest dark:text-gray-100 mb-6'>
-					Create Employee
-				</h2>
+		<div className='flex items-center justify-center h-full'>
+			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg'>
+				<h2 className='text-2xl font-semibold mb-6'>Create Employee</h2>
 				<form onSubmit={handleSubmit} className='space-y-6' noValidate>
 					<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 						<FormField
@@ -71,6 +69,7 @@ const EmployeeForm: React.FC = () => {
 							placeholder='John'
 							rules={fieldRules.firstName}
 							error={errors.firstName}
+							color={errors.firstName ? "error" : "primary"}
 						/>
 						<FormField
 							label='Last Name'
@@ -112,15 +111,13 @@ const EmployeeForm: React.FC = () => {
 							value={formData.department}
 							onChange={handleChange}
 							name='department'
-							rules={fieldRules.department}
 							placeholder='Select Department'
+							rules={fieldRules.department}
 							error={errors.department}
 						/>
 					</div>
 					<div className='mt-4'>
-						<h3 className='text-lg font-semibold text-gray-darkest dark:text-gray-100 mb-4'>
-							Address
-						</h3>
+						<h3 className='text-lg font-semibold mb-4'>Address</h3>
 						<AddressFieldSet
 							className='grid grid-cols-1 md:grid-cols-2 gap-4'
 							street={formData.street}
@@ -134,14 +131,10 @@ const EmployeeForm: React.FC = () => {
 							errors={errors}
 						/>
 					</div>
-					<Button
-						type='submit'
-						className='bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded shadow-md transition duration-300'
-					>
-						Save
-					</Button>
+					<div className='flex justify-end'>
+						<Button type='submit'>Save</Button>
+					</div>
 				</form>
-
 				{showConfirmation && (
 					<ConfirmationMessage
 						message={{
