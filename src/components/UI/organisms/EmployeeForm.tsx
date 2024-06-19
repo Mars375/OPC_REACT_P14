@@ -69,7 +69,6 @@ const EmployeeForm: React.FC = () => {
 							placeholder='John'
 							rules={fieldRules.firstName}
 							error={errors.firstName}
-							color={errors.firstName ? "error" : "primary"}
 						/>
 						<FormField
 							label='Last Name'

@@ -13,12 +13,11 @@ const Input: React.FC<InputProps> = React.memo(
 		const colorClass = inputStyles.color[color];
 		const sizeClass = inputStyles.size[size] || inputStyles.size.medium;
 		const baseClass = inputStyles.base;
-		const transitionClass = "transition ease-in-out duration-300";
 
 		return (
 			<input
 				{...rest}
-				className={`${baseClass} ${colorClass} ${sizeClass} ${transitionClass} `}
+				className={`${baseClass} ${colorClass} ${sizeClass}`}
 				placeholder={placeholder}
 				aria-invalid={!!fieldError}
 			/>

@@ -70,7 +70,7 @@ const FormField: React.FC<FormFieldProps> = ({
 			placeholder={placeholder}
 			aria-invalid={!!fieldError}
 			fieldError={fieldError}
-			color={color}
+			color={fieldError ? "error" : color}
 			size={size}
 			{...rest}
 		/>

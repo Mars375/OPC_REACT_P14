@@ -1,12 +1,14 @@
 export const inputStyles = {
-	base: "border border-black/50 dark:border-dark/50",
-	hover: "hover:border-black dark:hover:border-dark",
-	focus: "focus:border-2 focus:border-blue",
-	combined:
-		"border border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-blue",
+	base: "border p-2 w-full h-12 rounded outline-none bg-white dark:bg-dark",
+	color: {
+		primary:
+			"border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-blue dark:focus:border-blue",
+		error:
+			"border-red-500 dark:border-red-700 hover:border-red-600 dark:hover:border-red-800 focus:border-2 focus:border-red-500 dark:focus:border-red-700",
+	},
 	size: {
-		small: "p-2 text-sm",
-		medium: "p-3 text-base",
-		large: "p-4 text-lg",
+		small: "text-sm",
+		medium: "text-base",
+		large: "text-lg",
 	},
 };
