@@ -55,7 +55,7 @@ const EmployeeForm: React.FC = () => {
 
 	return (
 		<div className='flex items-center justify-center h-full'>
-			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg'>
+			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
 				<h2 className='text-2xl font-semibold mb-6'>Create Employee</h2>
 				<form onSubmit={handleSubmit} className='space-y-6' noValidate>
 					<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>

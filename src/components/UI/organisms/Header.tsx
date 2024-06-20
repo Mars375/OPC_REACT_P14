@@ -4,7 +4,7 @@ import ThemeToggle from "../atoms/ThemeToggle";
 
 const Header: React.FC = () => {
 	return (
-		<header className='p-4 flex justify-between items-center bg-light dark:bg-background-dark'>
+		<header className='p-4 flex justify-between items-center bg-light dark:bg-background-dark transition-[background-color] duration-300 ease-in-out'>
 			<div className='flex items-center space-x-4'>
 				<Link to='/'>
 					<img

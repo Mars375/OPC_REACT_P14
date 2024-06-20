@@ -20,16 +20,14 @@ const Select: React.FC<SelectProps> = ({
 	id,
 	...rest
 }) => {
-	const colorClass = fieldError
-		? inputStyles.color.error
-		: inputStyles.color[color];
-	const sizeClass = inputStyles.size[size];
-	const transitionClass = "transition ease-in-out duration-300";
+	const colorClass = inputStyles.color[color];
+	const sizeClass = inputStyles.size[size] || inputStyles.size.medium;
+	const baseClass = inputStyles.base;
 
 	return (
 		<select
 			{...rest}
-			className={`${inputStyles.base} ${colorClass} ${sizeClass} ${transitionClass} `}
+			className={`${baseClass} ${colorClass} ${sizeClass}`}
 			aria-invalid={!!fieldError}
 			aria-describedby={fieldError ? `${id}-error` : undefined}
 		>
