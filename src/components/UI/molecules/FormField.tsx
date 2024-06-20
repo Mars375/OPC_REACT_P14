@@ -13,12 +13,15 @@ const FormField: React.FC<FormFieldProps> = ({
 	name,
 	rules,
 	onChange,
-	placeholder,
 	color = "primary",
 	size = "medium",
 	...rest
 }) => {
 	const [fieldError, setFieldError] = useState<string | undefined>(error);
+	const [isFocused, setIsFocused] = useState(false);
+	const [inputType, setInputType] = useState<string>(
+		type === "date" ? "text" : type
+	);
 
 	useEffect(() => {
 		setFieldError(error);
@@ -42,9 +45,20 @@ const FormField: React.FC<FormFieldProps> = ({
 	};
 
 	const handleBlur = () => {
+		setIsFocused(false);
 		if (name) {
 			const error = validateField(value?.toString() || "", name);
 			setFieldError(error);
+		}
+		if (type === "date") {
+			setInputType("text");
+		}
+	};
+
+	const handleFocus = () => {
+		setIsFocused(true);
+		if (type === "date") {
+			setInputType("date");
 		}
 	};
 
@@ -66,8 +80,8 @@ const FormField: React.FC<FormFieldProps> = ({
 			value={value}
 			name={name}
 			onBlur={handleBlur}
+			onFocus={handleFocus}
 			onChange={handleChange}
-			placeholder={placeholder}
 			aria-invalid={!!fieldError}
 			fieldError={fieldError}
 			color={fieldError ? "error" : color}
@@ -77,12 +91,12 @@ const FormField: React.FC<FormFieldProps> = ({
 	) : (
 		<Input
 			id={id}
-			type={type}
+			type={inputType}
 			value={value}
 			name={name}
 			onBlur={handleBlur}
+			onFocus={handleFocus}
 			onChange={handleChange}
-			placeholder={placeholder}
 			aria-invalid={!!fieldError}
 			fieldError={fieldError}
 			color={fieldError ? "error" : color}
@@ -92,9 +106,23 @@ const FormField: React.FC<FormFieldProps> = ({
 	);
 
 	return (
-		<div className={`mb-4 ${className}`}>
-			<Label htmlFor={id} text={label} />
-			{inputElement}
+		<div className='flex flex-col'>
+			<div className={`relative ${className}`}>
+				<Label
+					htmlFor={id}
+					text={label}
+					className={`absolute left-3 transition-all duration-200 ease-in-out ${
+						fieldError ? "text-error-light dark:text-error-dark" : ""
+					} ${
+						isFocused
+							? "top-0 text-xs text-interactive-light dark:text-interactive-dark"
+							: value
+							? "top-0 text-xs"
+							: "top-1/2 transform -translate-y-1/2"
+					}`}
+				/>
+				{inputElement}
+			</div>
 			{fieldError && <p className='text-red-500 text-sm mt-1'>{fieldError}</p>}
 		</div>
 	);

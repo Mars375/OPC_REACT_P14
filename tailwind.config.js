@@ -7,7 +7,8 @@ export default {
         'light': '#ffffff',
         'dark': '#171717',
         'error': '#BF0000',
-        'blue': '#1a73e8',
+        'interactive-light': '#0071BC',
+        'interactive-dark': '#c2e7ff',
       },
       backgroundColor: {
         'background-dark': '#202124',
@@ -26,7 +27,8 @@ export default {
       borderColor: {
         'light': '#dadce0',
         'dark': '#5f6368',
-        'blue': '#1a73e8',
+        'interactive-light': '#0071BC',
+        'interactive-dark': '#c2e7ff',
         'error': '#BF0000',
       },
       opacity: {

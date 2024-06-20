@@ -17,9 +17,10 @@ const Input: React.FC<InputProps> = React.memo(
 		return (
 			<input
 				{...rest}
-				className={`${baseClass} ${colorClass} ${sizeClass}`}
+				className={`${baseClass} ${colorClass} ${sizeClass} dark:[color-scheme:dark]`}
 				placeholder={placeholder}
 				aria-invalid={!!fieldError}
+				required
 			/>
 		);
 	}

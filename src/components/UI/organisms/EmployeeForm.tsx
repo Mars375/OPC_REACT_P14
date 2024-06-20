@@ -66,7 +66,6 @@ const EmployeeForm: React.FC = () => {
 							value={formData.firstName}
 							onChange={handleChange}
 							name='firstName'
-							placeholder='John'
 							rules={fieldRules.firstName}
 							error={errors.firstName}
 						/>
@@ -77,7 +76,6 @@ const EmployeeForm: React.FC = () => {
 							value={formData.lastName}
 							onChange={handleChange}
 							name='lastName'
-							placeholder='Doe'
 							rules={fieldRules.lastName}
 							error={errors.lastName}
 						/>
@@ -88,7 +86,6 @@ const EmployeeForm: React.FC = () => {
 							value={formData.dateOfBirth}
 							onChange={handleChange}
 							name='dateOfBirth'
-							placeholder='1990-01-01'
 							rules={fieldRules.dateOfBirth}
 							error={errors.dateOfBirth}
 						/>
@@ -99,18 +96,16 @@ const EmployeeForm: React.FC = () => {
 							value={formData.startDate}
 							onChange={handleChange}
 							name='startDate'
-							placeholder='2022-01-01'
 							rules={fieldRules.startDate}
 							error={errors.startDate}
 						/>
 						<FormField
-							label='Department'
+							label='Choose Department'
 							id='department'
 							options={departmentOptions}
 							value={formData.department}
 							onChange={handleChange}
 							name='department'
-							placeholder='Select Department'
 							rules={fieldRules.department}
 							error={errors.department}
 						/>

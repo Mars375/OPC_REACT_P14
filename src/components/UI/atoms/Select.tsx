@@ -15,7 +15,6 @@ const Select: React.FC<SelectProps> = ({
 	options,
 	color = "primary",
 	size = "medium",
-	placeholder,
 	fieldError,
 	id,
 	...rest
@@ -31,11 +30,7 @@ const Select: React.FC<SelectProps> = ({
 			aria-invalid={!!fieldError}
 			aria-describedby={fieldError ? `${id}-error` : undefined}
 		>
-			{placeholder && (
-				<option value='' disabled>
-					{placeholder}
-				</option>
-			)}
+			<option value='' disabled hidden></option>
 			{options.map((option) => (
 				<option key={option.value} value={option.value}>
 					{option.label}
