@@ -18,7 +18,7 @@ const Header: React.FC = () => {
 				</h1>
 				<nav>
 					<Link
-						to='/employee-list'
+						to='/employees'
 						className='hover:underline text-interactive-light dark:text-interactive-dark'
 					>
 						View Current Employees
