@@ -1,5 +1,7 @@
-import React, { SelectHTMLAttributes } from "react";
+import React, { SelectHTMLAttributes, useContext } from "react";
 import { inputStyles } from "@/styles/inputStyles";
+import { useTheme } from "@/hooks/useTheme";
+
 interface SelectProps
 	extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> {
 	options: { value: string; label: string }[];
@@ -19,6 +21,7 @@ const Select: React.FC<SelectProps> = ({
 	id,
 	...rest
 }) => {
+	const { theme } = useTheme();
 	const colorClass = inputStyles.color[color];
 	const sizeClass = inputStyles.size[size] || inputStyles.size.medium;
 	const baseClass = inputStyles.base;
@@ -26,7 +29,9 @@ const Select: React.FC<SelectProps> = ({
 	return (
 		<select
 			{...rest}
-			className={`${baseClass} ${colorClass} ${sizeClass}`}
+			className={`${baseClass} ${colorClass} ${sizeClass} ${
+				theme === "dark" ? "dark-scrollbar" : "light-scrollbar"
+			}`}
 			aria-invalid={!!fieldError}
 			aria-describedby={fieldError ? `${id}-error` : undefined}
 		>

@@ -9,3 +9,27 @@ body {
 .container {
 	@apply max-w-4xl mx-auto;
 }
+
+.light-scrollbar::-webkit-scrollbar {
+	width: 10px;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+	background-color: #ccc;
+}
+
+.light-scrollbar::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+}
+
+.dark-scrollbar::-webkit-scrollbar {
+	width: 10px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+	background-color: #282a2c;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+	background-color: #1e1e1e;
+}

@@ -5,4 +5,5 @@ export interface ButtonProps {
 	size?: "small" | "medium" | "large";
 	children: React.ReactNode;
 	className?: string;
+	onClick?: () => void;
 }

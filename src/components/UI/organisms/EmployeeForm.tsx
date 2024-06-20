@@ -53,6 +53,22 @@ const EmployeeForm: React.FC = () => {
 		}
 	};
 
+	const handleClear = () => {
+		setFormData({
+			firstName: "",
+			lastName: "",
+			dateOfBirth: "",
+			startDate: "",
+			street: "",
+			city: "",
+			state: "",
+			zipCode: "",
+			department: "",
+		});
+		setErrors({});
+		setShowConfirmation(false);
+	};
+
 	return (
 		<div className='flex items-center justify-center h-full'>
 			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
@@ -125,7 +141,15 @@ const EmployeeForm: React.FC = () => {
 							errors={errors}
 						/>
 					</div>
-					<div className='flex justify-end'>
+					<div className='flex justify-end space-x-4'>
+						<Button
+							type='button'
+							onClick={handleClear}
+							variant='outlined'
+							color='secondary'
+						>
+							Clear
+						</Button>
 						<Button type='submit'>Save</Button>
 					</div>
 				</form>
