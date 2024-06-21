@@ -1,5 +1,5 @@
 import React from "react";
-import EmployeeForm from "@/components/UI/organisms/EmployeeForm";
+import { EmployeeForm } from "@/index";
 
 const CreateEmployeeTemplate: React.FC = () => {
 	return (

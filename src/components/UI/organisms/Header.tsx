@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ThemeToggle from "../atoms/ThemeToggle";
+import { ThemeToggle } from "@/index";
 
 const Header: React.FC = () => {
 	return (

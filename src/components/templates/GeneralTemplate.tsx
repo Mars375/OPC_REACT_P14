@@ -1,6 +1,5 @@
 import React from "react";
-import Header from "@/components/UI/organisms/Header";
-import Footer from "@/components/UI/organisms/Footer";
+import { Header, Footer } from "@/index";
 
 interface GeneralTemplateProps {
 	children: React.ReactNode;

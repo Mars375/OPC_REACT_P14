@@ -1,6 +1,10 @@
 import React, { useState, useContext } from "react";
-import { FormField, AddressFieldSet } from "../molecules";
-import { Button, ConfirmationMessage } from "../atoms";
+import {
+	FormField,
+	AddressFieldSet,
+	Button,
+	ConfirmationMessage,
+} from "@/index";
 import { validate } from "@/utils/formValidation";
 import { fieldRules } from "@/config/fieldRules";
 import { departmentOptions } from "@/utils/departmentOptions";

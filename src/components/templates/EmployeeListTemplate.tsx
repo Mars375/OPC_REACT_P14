@@ -1,5 +1,5 @@
 import React from "react";
-import EmployeeTable from "@/components/UI/organisms/EmployeeTable";
+import { EmployeeTable } from "@/index";
 
 const CreateEmployeeTemplate: React.FC = () => {
 	return (
