@@ -3,7 +3,8 @@ import EmployeeForm from "@/components/UI/organisms/EmployeeForm";
 
 const CreateEmployeeTemplate: React.FC = () => {
 	return (
-		<div className='max-w-4xl mx-auto p-4'>
+		<div className='flex flex-col items-center'>
+			<h2 className='text-2xl font-semibold mb-6'>Create Employee</h2>
 			<EmployeeForm />
 		</div>
 	);

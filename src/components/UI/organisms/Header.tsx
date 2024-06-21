@@ -4,24 +4,30 @@ import ThemeToggle from "../atoms/ThemeToggle";
 
 const Header: React.FC = () => {
 	return (
-		<header className='p-4 flex justify-between items-center bg-light dark:bg-background-dark transition-[background-color] duration-300 ease-in-out'>
-			<div className='flex items-center space-x-4'>
-				<Link to='/'>
+		<header className='px-4 flex justify-between items-center bg-light dark:bg-background-dark transition-[background-color] duration-300 ease-in-out'>
+			<div className='flex space-x-12'>
+				<Link to='/' className='flex items-center'>
 					<img
 						src='/HRLogo-removebg.png'
 						alt='HRnet Logo'
 						className='h-12 w-12'
 					/>
+					<h1 className='text-2xl font-bold text-primary-light dark:text-primary-dark'>
+						HRnet
+					</h1>
 				</Link>
-				<h1 className='text-2xl font-bold text-primary-light dark:text-primary-dark'>
-					HRnet
-				</h1>
-				<nav>
+				<nav className='flex'>
+					<Link
+						to='/'
+						className='text-[#0b57d0] dark:text-[#c2e7ffff] hover:bg-[#0b57d0]/20 dark:hover:bg-[#004a77ff]/30 flex items-center p-4'
+					>
+						Home
+					</Link>
 					<Link
 						to='/employees'
-						className='hover:underline text-interactive-light dark:text-interactive-dark'
+						className='text-[#0b57d0] dark:text-[#c2e7ffff] hover:bg-[#0b57d0]/20 dark:hover:bg-[#004a77ff]/30 flex items-center p-4'
 					>
-						View Current Employees
+						Employees
 					</Link>
 				</nav>
 			</div>

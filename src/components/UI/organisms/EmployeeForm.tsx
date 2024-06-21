@@ -70,98 +70,95 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='flex items-center justify-center h-full'>
-			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
-				<h2 className='text-2xl font-semibold mb-6'>Create Employee</h2>
-				<form onSubmit={handleSubmit} className='space-y-6' noValidate>
-					<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-						<FormField
-							label='First Name'
-							id='firstName'
-							type='text'
-							value={formData.firstName}
-							onChange={handleChange}
-							name='firstName'
-							rules={fieldRules.firstName}
-							error={errors.firstName}
-						/>
-						<FormField
-							label='Last Name'
-							id='lastName'
-							type='text'
-							value={formData.lastName}
-							onChange={handleChange}
-							name='lastName'
-							rules={fieldRules.lastName}
-							error={errors.lastName}
-						/>
-						<FormField
-							label='Date of Birth'
-							id='dateOfBirth'
-							type='date'
-							value={formData.dateOfBirth}
-							onChange={handleChange}
-							name='dateOfBirth'
-							rules={fieldRules.dateOfBirth}
-							error={errors.dateOfBirth}
-						/>
-						<FormField
-							label='Start Date'
-							id='startDate'
-							type='date'
-							value={formData.startDate}
-							onChange={handleChange}
-							name='startDate'
-							rules={fieldRules.startDate}
-							error={errors.startDate}
-						/>
-						<FormField
-							label='Choose Department'
-							id='department'
-							options={departmentOptions}
-							value={formData.department}
-							onChange={handleChange}
-							name='department'
-							rules={fieldRules.department}
-							error={errors.department}
-						/>
-					</div>
-					<div className='mt-4'>
-						<h3 className='text-lg font-semibold mb-4'>Address</h3>
-						<AddressFieldSet
-							className='grid grid-cols-1 md:grid-cols-2 gap-4'
-							street={formData.street}
-							city={formData.city}
-							state={formData.state}
-							zipCode={formData.zipCode}
-							onStreetChange={handleChange}
-							onCityChange={handleChange}
-							onStateChange={handleChange}
-							onZipCodeChange={handleChange}
-							errors={errors}
-						/>
-					</div>
-					<div className='flex justify-end space-x-4'>
-						<Button
-							type='button'
-							onClick={handleClear}
-							variant='outlined'
-							color='secondary'
-						>
-							Clear
-						</Button>
-						<Button type='submit'>Save</Button>
-					</div>
-				</form>
-				{showConfirmation && (
-					<ConfirmationMessage
-						message={{
-							text: "Employee created successfully!",
-							type: "success",
-						}}
+		<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
+			<form onSubmit={handleSubmit} className='space-y-6' noValidate>
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+					<FormField
+						label='First Name'
+						id='firstName'
+						type='text'
+						value={formData.firstName}
+						onChange={handleChange}
+						name='firstName'
+						rules={fieldRules.firstName}
+						error={errors.firstName}
 					/>
-				)}
-			</div>
+					<FormField
+						label='Last Name'
+						id='lastName'
+						type='text'
+						value={formData.lastName}
+						onChange={handleChange}
+						name='lastName'
+						rules={fieldRules.lastName}
+						error={errors.lastName}
+					/>
+					<FormField
+						label='Date of Birth'
+						id='dateOfBirth'
+						type='date'
+						value={formData.dateOfBirth}
+						onChange={handleChange}
+						name='dateOfBirth'
+						rules={fieldRules.dateOfBirth}
+						error={errors.dateOfBirth}
+					/>
+					<FormField
+						label='Start Date'
+						id='startDate'
+						type='date'
+						value={formData.startDate}
+						onChange={handleChange}
+						name='startDate'
+						rules={fieldRules.startDate}
+						error={errors.startDate}
+					/>
+					<FormField
+						label='Choose Department'
+						id='department'
+						options={departmentOptions}
+						value={formData.department}
+						onChange={handleChange}
+						name='department'
+						rules={fieldRules.department}
+						error={errors.department}
+					/>
+				</div>
+				<div className='mt-4'>
+					<h3 className='text-lg font-semibold mb-4'>Address</h3>
+					<AddressFieldSet
+						className='grid grid-cols-1 md:grid-cols-2 gap-4'
+						street={formData.street}
+						city={formData.city}
+						state={formData.state}
+						zipCode={formData.zipCode}
+						onStreetChange={handleChange}
+						onCityChange={handleChange}
+						onStateChange={handleChange}
+						onZipCodeChange={handleChange}
+						errors={errors}
+					/>
+				</div>
+				<div className='flex justify-end space-x-4'>
+					<Button
+						type='button'
+						onClick={handleClear}
+						variant='outlined'
+						color='secondary'
+					>
+						Clear
+					</Button>
+					<Button type='submit'>Save</Button>
+				</div>
+			</form>
+			{showConfirmation && (
+				<ConfirmationMessage
+					message={{
+						text: "Employee created successfully!",
+						type: "success",
+					}}
+				/>
+			)}
 		</div>
 	);
 };
