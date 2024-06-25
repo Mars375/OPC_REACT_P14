@@ -1513,10 +1513,10 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-opc-ui@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/opc-ui/-/opc-ui-0.1.7.tgz"
-  integrity sha512-5FSEH564dX4HhlenUjvKuB3pqX4lfcsveU23ISWFOKw+b2GAOQvfBEW/H/2mRqLqKQa0e+m+aRkyL3yCrat7hg==
+opc-ui@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/opc-ui/-/opc-ui-0.2.0.tgz"
+  integrity sha512-hFUCRPsEXgtWaAPZuyuFKwjy+vadYV2m6XQUq45PpVTBV3twVL84WHHMp176hGNIGhJgWh6lwJA4DBdgFZALEg==
   dependencies:
     class-variance-authority "^0.7.0"
     clsx "^2.1.1"

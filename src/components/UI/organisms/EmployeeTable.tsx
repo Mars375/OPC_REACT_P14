@@ -15,6 +15,7 @@ import {
 	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
+	EntriesSelector,
 } from "opc-ui";
 
 import { EmployeeFormData } from "@/types/employeeTypes";
@@ -80,57 +81,60 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					</TableBody>
 				</Table>
 			</div>
-			<div className='mt-4'>
-				<Pagination>
-					<PaginationContent className='gap-8'>
-						<PaginationItem>
-							<PaginationPrevious
+			<Pagination className='justify-end'>
+				<EntriesSelector
+					value={pageSize.toString()}
+					onChange={(e) => setPageSize(Number(e.target.value))}
+					options={[
+						{ value: "10", label: "10" },
+						{ value: "20", label: "20" },
+						{ value: "30", label: "30" },
+					]}
+				/>
+				<PaginationContent className='gap-8'>
+					<PaginationItem>
+						<PaginationPrevious
+							href='#'
+							size='icon'
+							onClick={(e) => {
+								e.preventDefault();
+								previousPage();
+							}}
+							isActive={canPreviousPage}
+							className={`${
+								!canPreviousPage && "opacity-50 pointer-events-none"
+							}`}
+						/>
+					</PaginationItem>
+					{Array.from({ length: pageCount }, (_, i) => (
+						<PaginationItem key={i}>
+							<PaginationLink
 								size='icon'
 								href='#'
+								isActive={i === pageIndex}
 								onClick={(e) => {
 									e.preventDefault();
-									previousPage();
+									gotoPage(i);
 								}}
-								isActive={canPreviousPage}
-								className={`${
-									canPreviousPage
-										? "opacity-100"
-										: "opacity-50 pointer-events-none"
-								}`}
-							/>
+							>
+								{i + 1}
+							</PaginationLink>
 						</PaginationItem>
-						{Array.from({ length: pageCount }, (_, i) => (
-							<PaginationItem key={i}>
-								<PaginationLink
-									size='icon'
-									href='#'
-									isActive={i === pageIndex}
-									onClick={(e) => {
-										e.preventDefault();
-										gotoPage(i);
-									}}
-								>
-									{i + 1}
-								</PaginationLink>
-							</PaginationItem>
-						))}
-						<PaginationItem>
-							<PaginationNext
-								size='icon'
-								href='#'
-								onClick={(e) => {
-									e.preventDefault();
-									nextPage();
-								}}
-								isActive={canNextPage}
-								className={`${
-									canNextPage ? "opacity-100" : "opacity-50 pointer-events-none"
-								}`}
-							/>
-						</PaginationItem>
-					</PaginationContent>
-				</Pagination>
-			</div>
+					))}
+					<PaginationItem>
+						<PaginationNext
+							href='#'
+							size='icon'
+							onClick={(e) => {
+								e.preventDefault();
+								nextPage();
+							}}
+							isActive={canNextPage}
+							className={`${!canNextPage && "opacity-50 pointer-events-none"}`}
+						/>
+					</PaginationItem>
+				</PaginationContent>
+			</Pagination>
 		</div>
 	);
 };
