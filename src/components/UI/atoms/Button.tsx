@@ -8,6 +8,7 @@ const Button: React.FC<ButtonProps> = React.memo(
 		color = "primary",
 		variant = "contained",
 		size = "medium",
+		disabled = false,
 		children,
 		className,
 		onClick,
@@ -22,6 +23,7 @@ const Button: React.FC<ButtonProps> = React.memo(
 			<button
 				type={type}
 				className={`${buttonStyles.base} ${colorClass} ${variantClass} ${sizeClass} ${transitionClass} ${className}`}
+				disabled={disabled}
 				onClick={onClick}
 				{...rest}
 			>

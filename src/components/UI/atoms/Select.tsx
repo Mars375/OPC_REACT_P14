@@ -2,9 +2,11 @@ import React, { SelectHTMLAttributes } from "react";
 import { inputStyles } from "@/styles/inputStyles";
 import { useTheme } from "@/hooks/useTheme";
 
-interface SelectProps
+interface SelectProps<T>
 	extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> {
-	options: { value: string; label: string }[];
+	options: T[];
+	renderOption: (option: T) => React.ReactNode;
+	getOptionValue: (option: T) => string;
 	color?: keyof typeof inputStyles.color;
 	size?: keyof typeof inputStyles.size;
 	className?: string;
@@ -13,14 +15,16 @@ interface SelectProps
 	id?: string;
 }
 
-const Select: React.FC<SelectProps> = ({
+const Select = <T,>({
 	options,
+	renderOption,
+	getOptionValue,
 	color = "primary",
 	size = "medium",
 	fieldError,
 	id,
 	...rest
-}) => {
+}: SelectProps<T>) => {
 	const { theme } = useTheme();
 	const colorClass = inputStyles.color[color];
 	const sizeClass = inputStyles.size[size] || inputStyles.size.medium;
@@ -37,8 +41,8 @@ const Select: React.FC<SelectProps> = ({
 		>
 			<option value='' disabled hidden></option>
 			{options.map((option) => (
-				<option key={option.value} value={option.value}>
-					{option.label}
+				<option key={getOptionValue(option)} value={getOptionValue(option)}>
+					{renderOption(option)}
 				</option>
 			))}
 		</select>

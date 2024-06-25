@@ -77,6 +77,8 @@ const FormField: React.FC<FormFieldProps> = ({
 		<Select
 			id={id}
 			options={options}
+			renderOption={(option) => option.label}
+			getOptionValue={(option) => option.value}
 			value={value}
 			name={name}
 			onBlur={handleBlur}
@@ -129,3 +131,5 @@ const FormField: React.FC<FormFieldProps> = ({
 };
 
 export default FormField;
+
+// TODO: Label Red for error doesnt apply
