@@ -1,5 +1,5 @@
 export const inputStyles = {
-	base: "border p-2 w-full h-12 rounded outline-none bg-white dark:bg-dark",
+	base: "border p-2 w-full h-12 rounded outline-none bg-white dark:bg-dark autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,255)] dark:autofill:shadow-[inset_0_0_0px_1000px_rgb(23,23,23)]",
 	color: {
 		primary:
 			"border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-interactive-light dark:focus:border-interactive-dark",

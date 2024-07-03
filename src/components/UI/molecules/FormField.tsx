@@ -113,13 +113,13 @@ const FormField: React.FC<FormFieldProps> = ({
 				<Label
 					htmlFor={id}
 					text={label}
-					className={`absolute left-3 transition-all duration-200 ease-in-out ${
+					className={`absolute left-2 transition-all duration-200 ease-in-out ${
 						fieldError ? "text-error-light dark:text-error-dark" : ""
 					} ${
 						isFocused
-							? "top-0 text-xs text-interactive-light dark:text-interactive-dark"
+							? "-top-4 text-xs text-interactive-light dark:text-interactive-dark"
 							: value
-							? "top-0 text-xs"
+							? "-top-4 text-xs"
 							: "top-1/2 transform -translate-y-1/2"
 					}`}
 				/>

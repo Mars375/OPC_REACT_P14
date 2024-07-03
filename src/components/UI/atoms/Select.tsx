@@ -35,13 +35,17 @@ const Select = <T,>({
 			{...rest}
 			className={`${baseClass} ${colorClass} ${sizeClass} ${
 				theme === "dark" ? "dark-scrollbar" : "light-scrollbar"
-			}`}
+			} dark:[color-scheme:dark]`}
 			aria-invalid={!!fieldError}
 			aria-describedby={fieldError ? `${id}-error` : undefined}
 		>
 			<option value='' disabled hidden></option>
 			{options.map((option) => (
-				<option key={getOptionValue(option)} value={getOptionValue(option)}>
+				<option
+					className='bg-white dark:bg-dark'
+					key={getOptionValue(option)}
+					value={getOptionValue(option)}
+				>
 					{renderOption(option)}
 				</option>
 			))}

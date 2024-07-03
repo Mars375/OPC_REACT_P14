@@ -16,6 +16,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 	EntriesSelector,
+	PaginationInfo,
 } from "opc-ui";
 
 import { EmployeeFormData } from "@/types/employeeTypes";
@@ -43,6 +44,29 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 
 	return (
 		<div>
+			<div className='flex items-center gap-2 mb-4'>
+				{currentEmployees.length > 0 && (
+					<>
+						<span className='text-sm text-gray-500 dark:text-gray-400'>
+							Show
+						</span>
+						<EntriesSelector
+							value={pageSize.toString()}
+							onChange={(e) => setPageSize(Number(e.target.value))}
+							options={[
+								{ value: "10", label: "10" },
+								{ value: "25", label: "25" },
+								{ value: "50", label: "50" },
+								{ value: "100", label: "100" },
+							]}
+							className='border p-1 rounded outline-none bg-white dark:bg-dark border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-interactive-light dark:focus:border-interactive-dark'
+						/>
+						<span className='text-sm text-gray-500 dark:text-gray-400'>
+							entries
+						</span>
+					</>
+				)}
+			</div>
 			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
 				<Table>
 					<TableHeader>
@@ -81,60 +105,60 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					</TableBody>
 				</Table>
 			</div>
-			<Pagination className='justify-end'>
-				<EntriesSelector
-					value={pageSize.toString()}
-					onChange={(e) => setPageSize(Number(e.target.value))}
-					options={[
-						{ value: "10", label: "10" },
-						{ value: "20", label: "20" },
-						{ value: "30", label: "30" },
-					]}
-				/>
-				<PaginationContent className='gap-8'>
-					<PaginationItem>
-						<PaginationPrevious
-							href='#'
-							size='icon'
-							onClick={(e) => {
-								e.preventDefault();
-								previousPage();
-							}}
-							isActive={canPreviousPage}
-							className={`${
-								!canPreviousPage && "opacity-50 pointer-events-none"
-							}`}
-						/>
-					</PaginationItem>
-					{Array.from({ length: pageCount }, (_, i) => (
-						<PaginationItem key={i}>
-							<PaginationLink
-								size='icon'
+			{currentEmployees.length > 0 && (
+				<Pagination className='justify-between items-center mt-1'>
+					<PaginationInfo
+						startItem={pageIndex * pageSize + 1}
+						endItem={pageIndex * pageSize + currentEmployees.length}
+						totalItems={totalItems}
+					/>
+					<PaginationContent className='gap-8'>
+						<PaginationItem>
+							<PaginationPrevious
 								href='#'
-								isActive={i === pageIndex}
+								size='icon'
 								onClick={(e) => {
 									e.preventDefault();
-									gotoPage(i);
+									previousPage();
 								}}
-							>
-								{i + 1}
-							</PaginationLink>
+								isActive={canPreviousPage}
+								className={`${
+									!canPreviousPage && "opacity-50 pointer-events-none"
+								}`}
+							/>
 						</PaginationItem>
-					))}
-					<PaginationItem>
-						<PaginationNext
-							href='#'
-							size='icon'
-							onClick={(e) => {
-								e.preventDefault();
-								nextPage();
-							}}
-							isActive={canNextPage}
-							className={`${!canNextPage && "opacity-50 pointer-events-none"}`}
-						/>
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+						{Array.from({ length: pageCount }, (_, i) => (
+							<PaginationItem key={i}>
+								<PaginationLink
+									size='sm'
+									href='#'
+									isActive={i === pageIndex}
+									onClick={(e) => {
+										e.preventDefault();
+										gotoPage(i);
+									}}
+								>
+									{i + 1}
+								</PaginationLink>
+							</PaginationItem>
+						))}
+						<PaginationItem>
+							<PaginationNext
+								href='#'
+								size='icon'
+								onClick={(e) => {
+									e.preventDefault();
+									nextPage();
+								}}
+								isActive={canNextPage}
+								className={`${
+									!canNextPage && "opacity-50 pointer-events-none"
+								}`}
+							/>
+						</PaginationItem>
+					</PaginationContent>
+				</Pagination>
+			)}
 		</div>
 	);
 };
