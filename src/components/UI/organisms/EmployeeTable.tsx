@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import {
 	Table,
 	TableHeader,
@@ -20,15 +20,46 @@ import {
 
 import { EmployeeFormData } from "@/types/employeeTypes";
 import usePagination from "@/hooks/usePagination";
+import useSearchAndSort from "@/hooks/useSearchAndSort";
 import Input from "../atoms/Input";
+import { requestSort } from "@/utils/sortUtils";
+
+type Column = {
+	key: keyof EmployeeFormData;
+	label: string;
+};
+
+const columns: Column[] = [
+	{ key: "firstName", label: "First Name" },
+	{ key: "lastName", label: "Last Name" },
+	{ key: "startDate", label: "Start Date" },
+	{ key: "department", label: "Department" },
+	{ key: "dateOfBirth", label: "Date of Birth" },
+	{ key: "street", label: "Street" },
+	{ key: "city", label: "City" },
+	{ key: "state", label: "State" },
+	{ key: "zipCode", label: "Zip Code" },
+];
+
+const paginationOptions = [
+	{ value: "10", label: "10" },
+	{ value: "25", label: "25" },
+	{ value: "50", label: "50" },
+	{ value: "100", label: "100" },
+];
 
 const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 	employees,
 }) => {
-	const [searchTerm, setSearchTerm] = useState("");
-	const [filteredEmployees, setFilteredEmployees] = useState<
-		EmployeeFormData[]
-	>([]);
+	const {
+		searchTerm,
+		setSearchTerm,
+		filteredEmployees,
+		sortConfig,
+		setSortConfig,
+		gotoPageRef,
+	} = useSearchAndSort(employees);
+
 	const totalItems = filteredEmployees.length;
 	const totalEntries = employees ? employees.length : 0;
 	const {
@@ -42,24 +73,27 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 		previousPage,
 		setPageSize,
 	} = usePagination({ totalItems });
-	const gotoPageRef = useRef(gotoPage);
 
-	useEffect(() => {
-		if (employees) {
-			const filtered = employees.filter((employee) =>
-				Object.values(employee).some((value) =>
-					value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-				)
-			);
-			setFilteredEmployees(filtered);
-			gotoPageRef.current(0);
-		}
-	}, [searchTerm, employees]);
+	gotoPageRef.current = gotoPage;
 
 	const currentEmployees = filteredEmployees.slice(
 		pageIndex * pageSize,
 		(pageIndex + 1) * pageSize
 	);
+
+	const getSortIcon = (key: keyof EmployeeFormData) => {
+		if (!sortConfig) {
+			return <span style={{ opacity: 0.3 }}>⇅</span>;
+		}
+		if (sortConfig.key === key) {
+			return sortConfig.direction === "ascending" ? (
+				<span>↑</span>
+			) : (
+				<span>↓</span>
+			);
+		}
+		return <span style={{ opacity: 0.3 }}>⇅</span>;
+	};
 
 	return (
 		<div>
@@ -69,12 +103,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					<EntriesSelector
 						value={pageSize.toString()}
 						onChange={(e) => setPageSize(Number(e.target.value))}
-						options={[
-							{ value: "10", label: "10" },
-							{ value: "25", label: "25" },
-							{ value: "50", label: "50" },
-							{ value: "100", label: "100" },
-						]}
+						options={paginationOptions}
 						className='border p-1 rounded outline-none bg-white dark:bg-dark border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-interactive-light dark:focus:border-interactive-dark'
 					/>
 					<span className='text-sm text-gray-500 dark:text-gray-400'>
@@ -90,39 +119,38 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					/>
 				</div>
 			</div>
-			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
+			<div className='max-w-5xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
 				<Table>
 					<TableHeader>
 						<TableRow>
-							<TableHead>First Name</TableHead>
-							<TableHead>Last Name</TableHead>
-							<TableHead>Start Date</TableHead>
-							<TableHead>Department</TableHead>
-							<TableHead>Date of Birth</TableHead>
-							<TableHead>Street</TableHead>
-							<TableHead>City</TableHead>
-							<TableHead>State</TableHead>
-							<TableHead>Zip Code</TableHead>
+							{columns.map((column) => (
+								<TableHead
+									key={column.key}
+									onClick={() =>
+										requestSort(column.key, sortConfig, setSortConfig)
+									}
+								>
+									{column.label} {getSortIcon(column.key)}
+								</TableHead>
+							))}
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{currentEmployees.length > 0 ? (
 							currentEmployees.map((employee, index) => (
 								<TableRow key={index}>
-									<TableCell>{employee.firstName}</TableCell>
-									<TableCell>{employee.lastName}</TableCell>
-									<TableCell>{employee.startDate}</TableCell>
-									<TableCell>{employee.department}</TableCell>
-									<TableCell>{employee.dateOfBirth}</TableCell>
-									<TableCell>{employee.street}</TableCell>
-									<TableCell>{employee.city}</TableCell>
-									<TableCell>{employee.state}</TableCell>
-									<TableCell>{employee.zipCode}</TableCell>
+									{columns.map((column) => (
+										<TableCell key={column.key}>
+											{employee[column.key]}
+										</TableCell>
+									))}
 								</TableRow>
 							))
 						) : (
 							<TableRow>
-								<TableCell colSpan={9}>No data available in table</TableCell>
+								<TableCell colSpan={columns.length}>
+									No data available in table
+								</TableCell>
 							</TableRow>
 						)}
 					</TableBody>
