@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
 	Table,
 	TableHeader,
@@ -16,16 +16,21 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 	EntriesSelector,
-	PaginationInfo,
 } from "opc-ui";
 
 import { EmployeeFormData } from "@/types/employeeTypes";
 import usePagination from "@/hooks/usePagination";
+import Input from "../atoms/Input";
 
 const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 	employees,
 }) => {
-	const totalItems = employees ? employees.length : 0;
+	const [searchTerm, setSearchTerm] = useState("");
+	const [filteredEmployees, setFilteredEmployees] = useState<
+		EmployeeFormData[]
+	>([]);
+	const totalItems = filteredEmployees.length;
+	const totalEntries = employees ? employees.length : 0;
 	const {
 		pageIndex,
 		pageSize,
@@ -37,35 +42,53 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 		previousPage,
 		setPageSize,
 	} = usePagination({ totalItems });
+	const gotoPageRef = useRef(gotoPage);
 
-	const currentEmployees = employees
-		? employees.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
-		: [];
+	useEffect(() => {
+		if (employees) {
+			const filtered = employees.filter((employee) =>
+				Object.values(employee).some((value) =>
+					value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+				)
+			);
+			setFilteredEmployees(filtered);
+			gotoPageRef.current(0);
+		}
+	}, [searchTerm, employees]);
+
+	const currentEmployees = filteredEmployees.slice(
+		pageIndex * pageSize,
+		(pageIndex + 1) * pageSize
+	);
 
 	return (
 		<div>
-			<div className='flex items-center gap-2 mb-4'>
-				{currentEmployees.length > 0 && (
-					<>
-						<span className='text-sm text-gray-500 dark:text-gray-400'>
-							Show
-						</span>
-						<EntriesSelector
-							value={pageSize.toString()}
-							onChange={(e) => setPageSize(Number(e.target.value))}
-							options={[
-								{ value: "10", label: "10" },
-								{ value: "25", label: "25" },
-								{ value: "50", label: "50" },
-								{ value: "100", label: "100" },
-							]}
-							className='border p-1 rounded outline-none bg-white dark:bg-dark border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-interactive-light dark:focus:border-interactive-dark'
-						/>
-						<span className='text-sm text-gray-500 dark:text-gray-400'>
-							entries
-						</span>
-					</>
-				)}
+			<div className='flex items-center justify-between gap-2 mb-4'>
+				<div className='flex items-center gap-2'>
+					<span className='text-sm text-gray-500 dark:text-gray-400'>Show</span>
+					<EntriesSelector
+						value={pageSize.toString()}
+						onChange={(e) => setPageSize(Number(e.target.value))}
+						options={[
+							{ value: "10", label: "10" },
+							{ value: "25", label: "25" },
+							{ value: "50", label: "50" },
+							{ value: "100", label: "100" },
+						]}
+						className='border p-1 rounded outline-none bg-white dark:bg-dark border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-interactive-light dark:focus:border-interactive-dark'
+					/>
+					<span className='text-sm text-gray-500 dark:text-gray-400'>
+						entries
+					</span>
+				</div>
+				<div className='w-1/3'>
+					<Input
+						type='text'
+						placeholder='Search...'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>
 			</div>
 			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
 				<Table>
@@ -105,24 +128,25 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					</TableBody>
 				</Table>
 			</div>
-			{currentEmployees.length > 0 && (
-				<Pagination className='justify-between items-center mt-1'>
-					<PaginationInfo
-						startItem={pageIndex * pageSize + 1}
-						endItem={pageIndex * pageSize + currentEmployees.length}
-						totalItems={totalItems}
-					/>
-					<PaginationContent className='gap-8'>
+			<div className='flex justify-between items-center mt-1'>
+				<span className='text-sm text-gray-500 dark:text-gray-400 w-full'>
+					{`Showing ${pageIndex * pageSize + 1} to ${
+						pageIndex * pageSize + currentEmployees.length
+					} of ${totalItems} entries`}
+					{searchTerm && ` (filtered from ${totalEntries} total entries)`}
+				</span>
+				<Pagination className='justify-end px-8'>
+					<PaginationContent>
 						<PaginationItem>
 							<PaginationPrevious
 								href='#'
-								size='icon'
+								size='null'
 								onClick={(e) => {
 									e.preventDefault();
 									previousPage();
 								}}
 								isActive={canPreviousPage}
-								className={`${
+								className={`p-2 ${
 									!canPreviousPage && "opacity-50 pointer-events-none"
 								}`}
 							/>
@@ -130,7 +154,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						{Array.from({ length: pageCount }, (_, i) => (
 							<PaginationItem key={i}>
 								<PaginationLink
-									size='sm'
+									size='icon'
 									href='#'
 									isActive={i === pageIndex}
 									onClick={(e) => {
@@ -145,20 +169,20 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						<PaginationItem>
 							<PaginationNext
 								href='#'
-								size='icon'
+								size='null'
 								onClick={(e) => {
 									e.preventDefault();
 									nextPage();
 								}}
 								isActive={canNextPage}
-								className={`${
+								className={`p-2 ${
 									!canNextPage && "opacity-50 pointer-events-none"
 								}`}
 							/>
 						</PaginationItem>
 					</PaginationContent>
 				</Pagination>
-			)}
+			</div>
 		</div>
 	);
 };
