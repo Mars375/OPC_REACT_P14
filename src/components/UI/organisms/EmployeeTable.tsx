@@ -119,7 +119,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					/>
 				</div>
 			</div>
-			<div className='max-w-5xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
+			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
 				<Table>
 					<TableHeader>
 						<TableRow>
