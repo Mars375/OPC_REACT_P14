@@ -7,7 +7,6 @@ import ThemeProvider from "./provider/ThemeProvider";
 import { EmployeeProvider } from "./provider/EmployeeProvider";
 
 import "./globals.css";
-import "opc-ui/dist/style.css";
 
 const router = createBrowserRouter([
 	{

@@ -10,6 +10,7 @@ import { fieldRules } from "@/config/fieldRules";
 import { departmentOptions } from "@/utils/departmentOptions";
 import EmployeeContext from "@/context/EmployeeContext";
 import { EmployeeFormData } from "@/types/employeeTypes";
+import { DatePicker } from "opc-ui";
 
 const EmployeeForm: React.FC = () => {
 	const context = useContext(EmployeeContext);
@@ -46,6 +47,17 @@ const EmployeeForm: React.FC = () => {
 		});
 	};
 
+	const handleDateChange = (date: string | null, name: string) => {
+		setFormData({
+			...formData,
+			[name]: date,
+		});
+		setErrors({
+			...errors,
+			[name]: "",
+		});
+	};
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const newErrors = validate(formData);
@@ -74,7 +86,7 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	return (
-		<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
+		<div className='max-w-4xl mx-auto p-6 bg-secondary shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
 			<form onSubmit={handleSubmit} className='space-y-6' noValidate>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 					<FormField
@@ -97,26 +109,34 @@ const EmployeeForm: React.FC = () => {
 						rules={fieldRules.lastName}
 						error={errors.lastName}
 					/>
-					<FormField
-						label='Date of Birth'
-						id='dateOfBirth'
-						type='date'
-						value={formData.dateOfBirth}
-						onChange={handleChange}
-						name='dateOfBirth'
-						rules={fieldRules.dateOfBirth}
-						error={errors.dateOfBirth}
-					/>
-					<FormField
-						label='Start Date'
-						id='startDate'
-						type='date'
-						value={formData.startDate}
-						onChange={handleChange}
-						name='startDate'
-						rules={fieldRules.startDate}
-						error={errors.startDate}
-					/>
+					<div>
+						<label htmlFor='dateOfBirth'>Date of Birth</label>
+						<DatePicker
+							id='dateOfBirth'
+							value={formData.dateOfBirth}
+							onChange={(date: string | null) =>
+								handleDateChange(date, "dateOfBirth")
+							}
+							error={errors.dateOfBirth}
+							disableFutureDates={true}
+							dateFormat='DD/MM/YYYY'
+							locale='fr-FR'
+						/>
+					</div>
+					<div>
+						<label htmlFor='startDate'>Start Date</label>
+						<DatePicker
+							id='startDate'
+							value={formData.startDate}
+							onChange={(date: string | null) =>
+								handleDateChange(date, "startDate")
+							}
+							error={errors.startDate}
+							dateFormat='DD/MM/YYYY'
+							locale='fr-FR'
+							showTime={false}
+						/>
+					</div>
 					<FormField
 						label='Choose Department'
 						id='department'

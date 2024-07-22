@@ -18,7 +18,6 @@ const FormField: React.FC<FormFieldProps> = ({
 	...rest
 }) => {
 	const [fieldError, setFieldError] = useState<string | undefined>(error);
-	const [isFocused, setIsFocused] = useState(false);
 	const [inputType, setInputType] = useState<string>(
 		type === "date" ? "text" : type
 	);
@@ -45,20 +44,12 @@ const FormField: React.FC<FormFieldProps> = ({
 	};
 
 	const handleBlur = () => {
-		setIsFocused(false);
 		if (name) {
 			const error = validateField(value?.toString() || "", name);
 			setFieldError(error);
 		}
 		if (type === "date") {
 			setInputType("text");
-		}
-	};
-
-	const handleFocus = () => {
-		setIsFocused(true);
-		if (type === "date") {
-			setInputType("date");
 		}
 	};
 
@@ -82,7 +73,6 @@ const FormField: React.FC<FormFieldProps> = ({
 			value={value}
 			name={name}
 			onBlur={handleBlur}
-			onFocus={handleFocus}
 			onChange={handleChange}
 			aria-invalid={!!fieldError}
 			fieldError={fieldError}
@@ -97,7 +87,6 @@ const FormField: React.FC<FormFieldProps> = ({
 			value={value}
 			name={name}
 			onBlur={handleBlur}
-			onFocus={handleFocus}
 			onChange={handleChange}
 			aria-invalid={!!fieldError}
 			fieldError={fieldError}
@@ -109,27 +98,21 @@ const FormField: React.FC<FormFieldProps> = ({
 
 	return (
 		<div className='flex flex-col'>
-			<div className={`relative ${className}`}>
+			<div className={`${className}`}>
 				<Label
 					htmlFor={id}
 					text={label}
-					className={`absolute left-2 transition-all duration-200 ease-in-out ${
-						fieldError ? "text-error-light dark:text-error-dark" : ""
-					} ${
-						isFocused
-							? "-top-4 text-xs text-interactive-light dark:text-interactive-dark"
-							: value
-							? "-top-4 text-xs"
-							: "top-1/2 transform -translate-y-1/2"
+					className={`transition-all duration-200 ease-in-out ${
+						fieldError ? "text-destructive" : ""
 					}`}
 				/>
 				{inputElement}
 			</div>
-			{fieldError && <p className='text-red-500 text-sm mt-1'>{fieldError}</p>}
+			{fieldError && (
+				<p className='text-destructive text-sm mt-1'>{fieldError}</p>
+			)}
 		</div>
 	);
 };
 
 export default FormField;
-
-// TODO: Label Red for error doesnt apply

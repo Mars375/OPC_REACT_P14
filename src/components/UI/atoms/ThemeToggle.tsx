@@ -10,12 +10,10 @@ const ThemeToggle: React.FC = React.memo(() => {
 		<div className='flex items-center'>
 			<button
 				onClick={toggleTheme}
-				className={`relative inline-flex items-center h-8 w-16 rounded-full p-1 transition-colors duration-300 ease-in-out hover:bg-opacity-75 focus:outline-none ${
-					theme === "dark" ? "bg-background-dark-2" : "bg-dark/5"
-				}`}
+				className={`relative inline-flex items-center h-8 w-16 rounded-full p-1 transition-colors duration-300 ease-in-out hover:bg-opacity-75 focus:outline-none bg-accent`}
 			>
 				<span
-					className={`absolute inset-y-1 left-0 flex items-center justify-center w-6 h-6 transform bg-light dark:bg-background-dark rounded-full shadow-md transition-transform duration-300 ease-in-out ${
+					className={`absolute inset-y-1 left-0 flex items-center justify-center w-6 h-6 transform rounded-full shadow-md transition-transform duration-300 ease-in-out ${
 						theme === "dark" ? "translate-x-9" : "translate-x-1"
 					}`}
 				>
