@@ -1,16 +1,12 @@
 import React, { useState, useContext } from "react";
-import {
-	FormField,
-	AddressFieldSet,
-	Button,
-	ConfirmationMessage,
-} from "@/index";
+import { FormField, Button, Label } from "@/index";
 import { validate } from "@/utils/formValidation";
 import { fieldRules } from "@/config/fieldRules";
 import { departmentOptions } from "@/utils/departmentOptions";
+import { states } from "@/utils/states";
 import EmployeeContext from "@/context/EmployeeContext";
 import { EmployeeFormData } from "@/types/employeeTypes";
-import { DatePicker } from "opc-ui";
+import { DatePicker, Combobox, useToast } from "opc-ui";
 
 const EmployeeForm: React.FC = () => {
 	const context = useContext(EmployeeContext);
@@ -18,6 +14,7 @@ const EmployeeForm: React.FC = () => {
 		throw new Error("EmployeeForm must be used within an EmployeeProvider");
 	}
 	const { addEmployee } = context;
+	const { toast } = useToast();
 
 	const [formData, setFormData] = useState<EmployeeFormData>({
 		firstName: "",
@@ -32,30 +29,16 @@ const EmployeeForm: React.FC = () => {
 	});
 
 	const [errors, setErrors] = useState<Partial<EmployeeFormData>>({});
-	const [showConfirmation, setShowConfirmation] = useState(false);
 
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => {
-		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
-		});
-		setErrors({
-			...errors,
-			[e.target.name]: "",
-		});
-	};
-
-	const handleDateChange = (date: string | null, name: string) => {
-		setFormData({
-			...formData,
-			[name]: date,
-		});
-		setErrors({
-			...errors,
+	const handleChange = (value: string, name: string) => {
+		setFormData((prevFormData) => ({
+			...prevFormData,
+			[name]: value,
+		}));
+		setErrors((prevErrors) => ({
+			...prevErrors,
 			[name]: "",
-		});
+		}));
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,9 +46,13 @@ const EmployeeForm: React.FC = () => {
 		const newErrors = validate(formData);
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
+			toast({
+				title: "Please fill in all fields correctly.",
+				variant: "destructive",
+			});
 		} else {
 			addEmployee(formData);
-			setShowConfirmation(true);
+			toast({ title: "Employee created successfully!" });
 		}
 	};
 
@@ -82,8 +69,18 @@ const EmployeeForm: React.FC = () => {
 			department: "",
 		});
 		setErrors({});
-		setShowConfirmation(false);
 	};
+
+	const addressFields = [
+		{ label: "Street", id: "street", name: "street", rules: fieldRules.street },
+		{ label: "City", id: "city", name: "city", rules: fieldRules.city },
+		{
+			label: "Zip Code",
+			id: "zipCode",
+			name: "zipCode",
+			rules: fieldRules.zipCode,
+		},
+	];
 
 	return (
 		<div className='max-w-4xl mx-auto p-6 bg-secondary shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
@@ -94,74 +91,111 @@ const EmployeeForm: React.FC = () => {
 						id='firstName'
 						type='text'
 						value={formData.firstName}
-						onChange={handleChange}
+						onChange={(value: string) => handleChange(value, "firstName")}
 						name='firstName'
 						rules={fieldRules.firstName}
 						error={errors.firstName}
+						placeholder='John'
 					/>
 					<FormField
 						label='Last Name'
 						id='lastName'
 						type='text'
 						value={formData.lastName}
-						onChange={handleChange}
+						onChange={(value: string) => handleChange(value, "lastName")}
 						name='lastName'
 						rules={fieldRules.lastName}
 						error={errors.lastName}
+						placeholder='Doe'
 					/>
 					<div>
-						<label htmlFor='dateOfBirth'>Date of Birth</label>
+						<Label
+							htmlFor='dateOfBirth'
+							className={errors.dateOfBirth ? "text-destructive" : ""}
+						>
+							Date of Birth
+						</Label>
 						<DatePicker
 							id='dateOfBirth'
 							value={formData.dateOfBirth}
 							onChange={(date: string | null) =>
-								handleDateChange(date, "dateOfBirth")
+								handleChange(date || "", "dateOfBirth")
 							}
 							error={errors.dateOfBirth}
 							disableFutureDates={true}
-							dateFormat='DD/MM/YYYY'
-							locale='fr-FR'
+							dateFormat='MM/DD/YYYY'
+							locale='en-US'
 						/>
 					</div>
 					<div>
-						<label htmlFor='startDate'>Start Date</label>
+						<Label
+							htmlFor='startDate'
+							className={errors.startDate ? "text-destructive" : ""}
+						>
+							Start Date
+						</Label>
 						<DatePicker
 							id='startDate'
 							value={formData.startDate}
 							onChange={(date: string | null) =>
-								handleDateChange(date, "startDate")
+								handleChange(date || "", "startDate")
 							}
 							error={errors.startDate}
-							dateFormat='DD/MM/YYYY'
-							locale='fr-FR'
-							showTime={false}
+							dateFormat='MM/DD/YYYY'
+							locale='en-US'
 						/>
 					</div>
-					<FormField
-						label='Choose Department'
-						id='department'
-						options={departmentOptions}
-						value={formData.department}
-						onChange={handleChange}
-						name='department'
-						rules={fieldRules.department}
-						error={errors.department}
-					/>
+					<div>
+						<Label
+							htmlFor='department'
+							className={errors.department ? "text-destructive" : ""}
+						>
+							Department
+						</Label>
+						<Combobox
+							id='department'
+							options={departmentOptions}
+							value={formData.department}
+							onChange={(value: string) => handleChange(value, "department")}
+							name='department'
+							error={errors.department}
+						/>
+					</div>
 				</div>
 				<div className='mt-4'>
 					<h3 className='text-lg font-semibold mb-4'>Address</h3>
-					<AddressFieldSet
-						className='grid grid-cols-1 md:grid-cols-2 gap-4'
-						street={formData.street}
-						city={formData.city}
-						state={formData.state}
-						zipCode={formData.zipCode}
-						onStreetChange={handleChange}
-						onCityChange={handleChange}
-						onStateChange={handleChange}
-						onZipCodeChange={handleChange}
-						errors={errors}
-					/>
+					<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+						{addressFields.map((field) => (
+							<FormField
+								key={field.id}
+								label={field.label}
+								id={field.id}
+								type='text'
+								value={formData[field.name as keyof EmployeeFormData]}
+								onChange={(value: string) => handleChange(value, field.name)}
+								name={field.name}
+								rules={field.rules}
+								error={errors[field.name as keyof EmployeeFormData]}
+							/>
+						))}
+						<div>
+							<Label
+								htmlFor='state'
+								className={errors.state ? "text-destructive" : ""}
+							>
+								State
+							</Label>
+							<Combobox
+								id='state'
+								options={states}
+								value={formData.state}
+								onChange={(value: string) => handleChange(value, "state")}
+								name='state'
+								error={errors.state}
+								className='w-full'
+							/>
+						</div>
+					</div>
 				</div>
 				<div className='flex justify-end space-x-4'>
 					<Button
@@ -175,14 +209,6 @@ const EmployeeForm: React.FC = () => {
 					<Button type='submit'>Save</Button>
 				</div>
 			</form>
-			{showConfirmation && (
-				<ConfirmationMessage
-					message={{
-						text: "Employee created successfully!",
-						type: "success",
-					}}
-				/>
-			)}
 		</div>
 	);
 };

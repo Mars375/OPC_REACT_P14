@@ -1,13 +1,13 @@
 import React, { LabelHTMLAttributes } from "react";
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-	text: string;
+	children: React.ReactNode;
 }
 
-const Label: React.FC<LabelProps> = ({ text, className, ...rest }) => {
+const Label: React.FC<LabelProps> = ({ children, className, ...rest }) => {
 	return (
 		<label {...rest} className={`block mb-1 ${className}`}>
-			{text}
+			{children}
 		</label>
 	);
 };

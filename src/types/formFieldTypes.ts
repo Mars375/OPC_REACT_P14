@@ -18,9 +18,7 @@ export interface FormFieldProps {
 	value?: string;
 	name?: string;
 	rules?: Rule;
-	onChange?: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void;
+	onChange?: (value: string) => void;
 	placeholder?: string;
 	color?: keyof typeof inputStyles.color;
 	size?: keyof typeof inputStyles.size;

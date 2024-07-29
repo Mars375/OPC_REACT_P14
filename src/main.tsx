@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import EmployeeListPage from "./pages/EmployeeListPage";
 import ThemeProvider from "./provider/ThemeProvider";
 import { EmployeeProvider } from "./provider/EmployeeProvider";
+import { Toaster } from "opc-ui";
 
 import "./globals.css";
 
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<ThemeProvider>
 			<EmployeeProvider>
+				<Toaster />
 				<RouterProvider router={router} />
 			</EmployeeProvider>
 		</ThemeProvider>

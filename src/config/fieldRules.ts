@@ -16,15 +16,15 @@ export const fieldRules = {
 	dateOfBirth: {
 		required: "Date of birth is required",
 		pattern: {
-			value: /^\d{4}-\d{2}-\d{2}$/,
-			message: "Date of birth must be in the format YYYY-MM-DD",
+			value: /^\d{2}\/\d{2}\/\d{4}$/,
+			message: "Date of birth must be in the format MM/DD/YYYY",
 		},
 	},
 	startDate: {
 		required: "Start date is required",
 		pattern: {
-			value: /^\d{4}-\d{2}-\d{2}$/,
-			message: "Start date must be in the format YYYY-MM-DD",
+			value: /^\d{2}\/\d{2}\/\d{4}$/,
+			message: "Start date must be in the format MM/DD/YYYY",
 		},
 	},
 	department: {

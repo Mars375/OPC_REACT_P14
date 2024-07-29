@@ -3,14 +3,12 @@ export { default as CreateEmployeeTemplate } from "./components/templates/Create
 export { default as EmployeeListTemplate } from "./components/templates/EmployeeListTemplate";
 
 export { default as Button } from "./components/UI/atoms/Button";
-export { default as ConfirmationMessage } from "./components/UI/atoms/ConfirmationMessage";
 export { default as Input } from "./components/UI/atoms/Input";
 export { default as Label } from "./components/UI/atoms/Label";
 export { default as Select } from "./components/UI/atoms/Select";
 export { default as ThemeToggle } from "./components/UI/atoms/ThemeToggle";
 
 export { default as FormField } from "./components/UI/molecules/FormField";
-export { default as AddressFieldSet } from "./components/UI/molecules/AddressFieldSet";
 
 export { default as Header } from "./components/UI/organisms/Header";
 export { default as Footer } from "./components/UI/organisms/Footer";

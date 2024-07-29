@@ -56,7 +56,7 @@ const FormField: React.FC<FormFieldProps> = ({
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
-		onChange?.(e);
+		onChange?.(e.target.value);
 		const newValue = e.target.value;
 		if (name) {
 			const error = validateField(newValue, name);
@@ -101,11 +101,12 @@ const FormField: React.FC<FormFieldProps> = ({
 			<div className={`${className}`}>
 				<Label
 					htmlFor={id}
-					text={label}
 					className={`transition-all duration-200 ease-in-out ${
 						fieldError ? "text-destructive" : ""
 					}`}
-				/>
+				>
+					{label}
+				</Label>
 				{inputElement}
 			</div>
 			{fieldError && (

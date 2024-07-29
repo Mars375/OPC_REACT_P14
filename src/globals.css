@@ -8,6 +8,9 @@
 		--background: 0 0% 100%;
 		--foreground: 222.2 47.4% 11.2%;
 
+		--autocomplete-background: #fff;
+		--autocomplete-color: #000;
+
 		--muted: 210 40% 96.1%;
 		--muted-foreground: 215.4 16.3% 46.9%;
 
@@ -35,11 +38,17 @@
 		--ring: 215 20.2% 65.1%;
 
 		--radius: 0.5rem;
+
+		--scroll-thumb: #ccc;
+		--scroll-track: #f1f1f1;
 	}
 
 	.dark {
 		--background: 224 71% 4%;
 		--foreground: 213 31% 91%;
+
+		--autocomplete-background: #030711;
+		--autocomplete-color: #fff;
 
 		--muted: 223 47% 11%;
 		--muted-foreground: 215.4 16.3% 56.9%;
@@ -68,6 +77,9 @@
 		--ring: 216 34% 17%;
 
 		--radius: 0.5rem;
+
+		--scroll-thumb: #282a2c;
+		--scroll-track: #1e1e1e;
 	}
 }
 
@@ -91,28 +103,24 @@ body {
 	@apply max-w-4xl mx-auto;
 }
 
-.light-scrollbar::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 10px;
 }
 
-.light-scrollbar::-webkit-scrollbar-thumb {
-	background-color: #ccc;
+::-webkit-scrollbar-thumb {
+	background-color: var(--scroll-thumb); /* Rouge pour tester */
 }
 
-.light-scrollbar::-webkit-scrollbar-track {
-	background-color: #f1f1f1;
+::-webkit-scrollbar-track {
+	background-color: var(--scroll-track); /* Vert pour tester */
 }
 
-.dark-scrollbar::-webkit-scrollbar {
-	width: 10px;
-}
-
-.dark-scrollbar::-webkit-scrollbar-thumb {
-	background-color: #282a2c;
-}
-
-.dark-scrollbar::-webkit-scrollbar-track {
-	background-color: #1e1e1e;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px var(--autocomplete-background) inset !important;
+	-webkit-text-fill-color: var(--autocomplete-color);
 }
 
 .sort-icons {
