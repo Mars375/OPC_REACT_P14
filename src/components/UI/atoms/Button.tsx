@@ -10,7 +10,9 @@ import { buttonStyles } from "@/styles/buttonStyles";
  *
  * @param {ButtonProps} props - The properties passed to the button component.
  */
-const Button: React.FC<ButtonProps> = React.memo(
+const Button: React.FC<
+	ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
+> = React.memo(
 	({
 		type = "button",
 		color = "primary",

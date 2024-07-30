@@ -55,12 +55,14 @@ const EmployeeForm: React.FC = () => {
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
 			toast({
-				title: "Please fill in all fields correctly.",
+				title: "Error : Please fill in all fields correctly.",
 				variant: "destructive",
 			});
+			console.log("Error: Please fill in all fields correctly.");
 		} else {
 			addEmployee(formData);
 			toast({ title: "Employee created successfully!" });
+			console.log("Employee Validated");
 		}
 	};
 
@@ -106,9 +108,15 @@ const EmployeeForm: React.FC = () => {
 
 	return (
 		<div className='max-w-4xl mx-auto p-6 bg-secondary shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
-			<form onSubmit={handleSubmit} className='space-y-6' noValidate>
+			<form
+				onSubmit={handleSubmit}
+				className='space-y-6'
+				noValidate
+				data-testid='employee-form'
+			>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 					<FormField
+						aria-label='First Name'
 						label='First Name'
 						id='firstName'
 						type='text'
@@ -118,8 +126,10 @@ const EmployeeForm: React.FC = () => {
 						rules={fieldRules.firstName}
 						error={errors.firstName}
 						placeholder='John'
+						data-testid='first-name-input'
 					/>
 					<FormField
+						aria-label='Last Name'
 						label='Last Name'
 						id='lastName'
 						type='text'
@@ -129,6 +139,7 @@ const EmployeeForm: React.FC = () => {
 						rules={fieldRules.lastName}
 						error={errors.lastName}
 						placeholder='Doe'
+						data-testid='last-name-input'
 					/>
 					<div>
 						<Label
@@ -138,6 +149,7 @@ const EmployeeForm: React.FC = () => {
 							Date of Birth
 						</Label>
 						<DatePicker
+							aria-label='Date of Birth (format MM/DD/YYYY)'
 							id='dateOfBirth'
 							value={formData.dateOfBirth}
 							onChange={(date: string | null) =>
@@ -157,6 +169,7 @@ const EmployeeForm: React.FC = () => {
 							Start Date
 						</Label>
 						<DatePicker
+							aria-label='Start Date (format MM/DD/YYYY)'
 							id='startDate'
 							value={formData.startDate}
 							onChange={(date: string | null) =>
@@ -176,11 +189,13 @@ const EmployeeForm: React.FC = () => {
 						</Label>
 						<Combobox
 							id='department'
+							aria-label='Department'
 							options={departmentOptions}
 							value={formData.department}
 							onChange={(value: string) => handleChange(value, "department")}
 							name='department'
 							error={errors.department}
+							data-testid='department-combobox'
 						/>
 					</div>
 				</div>
@@ -199,6 +214,8 @@ const EmployeeForm: React.FC = () => {
 								name={field.name}
 								rules={field.rules}
 								error={errors[field.name as keyof EmployeeFormData]}
+								data-testid={`${field.name}-input`}
+								aria-label={`${field.label}`}
 							/>
 						))}
 						<div>
@@ -209,6 +226,8 @@ const EmployeeForm: React.FC = () => {
 								State
 							</Label>
 							<Combobox
+								aria-label='Select a state'
+								role='combobox'
 								id='state'
 								options={states}
 								value={formData.state}
@@ -216,6 +235,7 @@ const EmployeeForm: React.FC = () => {
 								name='state'
 								error={errors.state}
 								className='w-full'
+								data-testid='state-combobox'
 							/>
 						</div>
 					</div>
@@ -226,10 +246,14 @@ const EmployeeForm: React.FC = () => {
 						onClick={handleClear}
 						variant='outlined'
 						color='secondary'
+						data-testid='clear-button'
+						tabIndex={0}
 					>
 						Clear
 					</Button>
-					<Button type='submit'>Save</Button>
+					<Button type='submit' data-testid='submit-button'>
+						Save
+					</Button>
 				</div>
 			</form>
 		</div>
