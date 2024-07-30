@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 const EmployeeListPage = () => {
 	const context = useContext(EmployeeContext);
-	const employees = context?.employees;
+	const employees = context?.employees ?? [];
 	return (
 		<GeneralTemplate>
 			<EmployeeListTemplate employees={employees} />

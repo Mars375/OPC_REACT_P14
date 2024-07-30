@@ -104,7 +104,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						value={pageSize.toString()}
 						onChange={(e) => setPageSize(Number(e.target.value))}
 						options={paginationOptions}
-						className='border p-1 rounded outline-none bg-white dark:bg-dark border-black/50 dark:border-dark/50 hover:border-black dark:hover:border-dark focus:border-2 focus:border-interactive-light dark:focus:border-interactive-dark'
+						className='border p-1 rounded outline-none bg-background'
 					/>
 					<span className='text-sm text-gray-500 dark:text-gray-400'>
 						entries
@@ -149,7 +149,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						) : (
 							<TableRow>
 								<TableCell colSpan={columns.length}>
-									No data available in table
+									No Employees Found
 								</TableCell>
 							</TableRow>
 						)}
