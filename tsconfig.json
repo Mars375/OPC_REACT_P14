@@ -10,6 +10,7 @@
 			"@styles/*": ["./src/styles/*"],
 			"@components/*": ["./src/components/*"]
 		},
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",
