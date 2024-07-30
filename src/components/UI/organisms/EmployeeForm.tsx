@@ -8,6 +8,12 @@ import EmployeeContext from "@/context/EmployeeContext";
 import { EmployeeFormData } from "@/types/employeeTypes";
 import { DatePicker, Combobox, useToast } from "opc-ui";
 
+/**
+ * EmployeeForm component for creating or editing employee records.
+ *
+ * This form includes fields for personal details, address, and employment details.
+ * It validates inputs and displays errors where necessary using a custom validation logic.
+ */
 const EmployeeForm: React.FC = () => {
 	const context = useContext(EmployeeContext);
 	if (!context) {
@@ -30,6 +36,7 @@ const EmployeeForm: React.FC = () => {
 
 	const [errors, setErrors] = useState<Partial<EmployeeFormData>>({});
 
+	// Handles changes in form fields and updates state
 	const handleChange = (value: string, name: string) => {
 		setFormData((prevFormData) => ({
 			...prevFormData,
@@ -41,6 +48,7 @@ const EmployeeForm: React.FC = () => {
 		}));
 	};
 
+	// Submits the form data after validation
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const newErrors = validate(formData);
@@ -56,6 +64,7 @@ const EmployeeForm: React.FC = () => {
 		}
 	};
 
+	// Clears all form fields
 	const handleClear = () => {
 		setFormData({
 			firstName: "",
@@ -72,12 +81,25 @@ const EmployeeForm: React.FC = () => {
 	};
 
 	const addressFields = [
-		{ label: "Street", id: "street", name: "street", rules: fieldRules.street },
-		{ label: "City", id: "city", name: "city", rules: fieldRules.city },
+		{
+			label: "Street",
+			id: "street",
+			name: "street",
+			placeholder: "123 Main St",
+			rules: fieldRules.street,
+		},
+		{
+			label: "City",
+			id: "city",
+			name: "city",
+			placeholder: "Anytown",
+			rules: fieldRules.city,
+		},
 		{
 			label: "Zip Code",
 			id: "zipCode",
 			name: "zipCode",
+			placeholder: "12345",
 			rules: fieldRules.zipCode,
 		},
 	];
@@ -171,6 +193,7 @@ const EmployeeForm: React.FC = () => {
 								label={field.label}
 								id={field.id}
 								type='text'
+								placeholder={field.placeholder}
 								value={formData[field.name as keyof EmployeeFormData]}
 								onChange={(value: string) => handleChange(value, field.name)}
 								name={field.name}

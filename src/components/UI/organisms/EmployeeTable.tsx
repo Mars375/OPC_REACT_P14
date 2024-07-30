@@ -6,9 +6,6 @@ import {
 	TableHead,
 	TableRow,
 	TableCell,
-} from "opc-ui";
-
-import {
 	Pagination,
 	PaginationContent,
 	PaginationItem,
@@ -48,6 +45,12 @@ const paginationOptions = [
 	{ value: "100", label: "100" },
 ];
 
+/**
+ * EmployeeTable component that displays employee data in a sortable and paginated table.
+ *
+ * This component integrates search, sorting, and pagination functionalities to manage large sets of employee data.
+ * It uses custom hooks for pagination and sorting to provide a dynamic and responsive user experience.
+ */
 const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 	employees,
 }) => {
@@ -58,10 +61,10 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 		sortConfig,
 		setSortConfig,
 		gotoPageRef,
-	} = useSearchAndSort(employees);
+	} = useSearchAndSort(employees); // Hook to handle search and sorting logic
 
-	const totalItems = filteredEmployees.length;
-	const totalEntries = employees ? employees.length : 0;
+	const totalItems = filteredEmployees.length; // Total number of items after filtering
+	const totalEntries = employees ? employees.length : 0; // Total number of items before filtering
 	const {
 		pageIndex,
 		pageSize,
@@ -72,16 +75,17 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 		nextPage,
 		previousPage,
 		setPageSize,
-	} = usePagination({ totalItems });
+	} = usePagination({ totalItems }); // Hook to handle pagination logic
 
-	gotoPageRef.current = gotoPage;
+	gotoPageRef.current = gotoPage; // Reference to the gotoPage function for external use
 
 	const currentEmployees = filteredEmployees.slice(
 		pageIndex * pageSize,
 		(pageIndex + 1) * pageSize
-	);
+	); // Employees for the current page
 
 	const getSortIcon = (key: keyof EmployeeFormData) => {
+		// Function to determine which sort icon to display
 		if (!sortConfig) {
 			return <span style={{ opacity: 0.3 }}>⇅</span>;
 		}
@@ -116,7 +120,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						placeholder='Search...'
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-					/>
+					/>{" "}
 				</div>
 			</div>
 			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
@@ -131,7 +135,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 									}
 								>
 									{column.label} {getSortIcon(column.key)}
-								</TableHead>
+								</TableHead> // Clickable headers for sorting
 							))}
 						</TableRow>
 					</TableHeader>
@@ -142,7 +146,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 									{columns.map((column) => (
 										<TableCell key={column.key}>
 											{employee[column.key]}
-										</TableCell>
+										</TableCell> // Display employee data
 									))}
 								</TableRow>
 							))

@@ -1,5 +1,12 @@
 import { EmployeeFormData } from "@/types/employeeTypes";
 
+/**
+ * Filters an array of employees based on a search term.
+ *
+ * @param {EmployeeFormData[]} employees - The array of employees to filter.
+ * @param {string} searchTerm - The term used to filter employees.
+ * @returns {EmployeeFormData[]} The filtered array of employees.
+ */
 export const filterEmployees = (
 	employees: EmployeeFormData[],
 	searchTerm: string
@@ -11,6 +18,13 @@ export const filterEmployees = (
 	);
 };
 
+/**
+ * Sorts an array of employees based on a specified key and direction.
+ *
+ * @param {EmployeeFormData[]} employees - The array of employees to sort.
+ * @param {{ key: keyof EmployeeFormData; direction: string }} sortConfig - Configuration for sorting, including the key to sort by and the direction ('ascending' or 'descending').
+ * @returns {EmployeeFormData[]} The sorted array of employees.
+ */
 export const sortEmployees = (
 	employees: EmployeeFormData[],
 	sortConfig: { key: keyof EmployeeFormData; direction: string }

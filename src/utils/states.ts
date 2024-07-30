@@ -1,3 +1,9 @@
+/**
+ * Provides a list of US state options used in select dropdowns throughout the application.
+ *
+ * This array is used to populate select dropdowns where users can choose a state.
+ * Each option is an object with a `value` (state abbreviation) and `label` (full state name).
+ */
 export const states = [
 	{ value: "AL", label: "Alabama" },
 	{ value: "AK", label: "Alaska" },

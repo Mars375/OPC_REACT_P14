@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { FormFieldProps } from "@/types/formFieldTypes";
-import { Input, Label, Select } from "@/index";
+import { Input, Label } from "@/index";
 
+/**
+ * FormField component that dynamically renders an input element based on provided props.
+ *
+ * This component handles input changes, validation, and displays errors. It supports text inputs.
+ *
+ * @param {FormFieldProps} props - The properties passed to the form field component.
+ */
 const FormField: React.FC<FormFieldProps> = ({
 	label,
 	id,
 	type = "text",
 	error,
-	options,
 	className,
 	value,
 	name,
@@ -26,6 +32,7 @@ const FormField: React.FC<FormFieldProps> = ({
 		setFieldError(error);
 	}, [error]);
 
+	// Validates the field value against the provided rules and sets the appropriate error message.
 	const validateField = (value: string, name: string) => {
 		if (rules?.required && !value) {
 			return rules.required;
@@ -43,6 +50,7 @@ const FormField: React.FC<FormFieldProps> = ({
 		return undefined;
 	};
 
+	// Handles field blur event to validate and potentially reset input types.
 	const handleBlur = () => {
 		if (name) {
 			const error = validateField(value?.toString() || "", name);
@@ -53,9 +61,8 @@ const FormField: React.FC<FormFieldProps> = ({
 		}
 	};
 
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => {
+	// Handles changes to the input value, validates the field, and calls the onChange prop.
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		onChange?.(e.target.value);
 		const newValue = e.target.value;
 		if (name) {
@@ -63,38 +70,6 @@ const FormField: React.FC<FormFieldProps> = ({
 			setFieldError(error);
 		}
 	};
-
-	const inputElement = options ? (
-		<Select
-			id={id}
-			options={options}
-			renderOption={(option) => option.label}
-			getOptionValue={(option) => option.value}
-			value={value}
-			name={name}
-			onBlur={handleBlur}
-			onChange={handleChange}
-			aria-invalid={!!fieldError}
-			fieldError={fieldError}
-			color={fieldError ? "error" : color}
-			size={size}
-			{...rest}
-		/>
-	) : (
-		<Input
-			id={id}
-			type={inputType}
-			value={value}
-			name={name}
-			onBlur={handleBlur}
-			onChange={handleChange}
-			aria-invalid={!!fieldError}
-			fieldError={fieldError}
-			color={fieldError ? "error" : color}
-			size={size}
-			{...rest}
-		/>
-	);
 
 	return (
 		<div className='flex flex-col'>
@@ -107,7 +82,19 @@ const FormField: React.FC<FormFieldProps> = ({
 				>
 					{label}
 				</Label>
-				{inputElement}
+				<Input
+					id={id}
+					type={inputType}
+					value={value}
+					name={name}
+					onBlur={handleBlur}
+					onChange={handleChange}
+					aria-invalid={!!fieldError}
+					fieldError={fieldError}
+					color={fieldError ? "error" : color}
+					size={size}
+					{...rest}
+				/>
 			</div>
 			{fieldError && (
 				<p className='text-destructive text-sm mt-1'>{fieldError}</p>
