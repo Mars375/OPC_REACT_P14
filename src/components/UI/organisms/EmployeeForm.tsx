@@ -156,9 +156,9 @@ const EmployeeForm: React.FC = () => {
 								handleChange(date || "", "dateOfBirth")
 							}
 							error={errors.dateOfBirth}
-							disableFutureDates={true}
 							dateFormat='MM/DD/YYYY'
 							locale='en-US'
+							disableFutureDates
 						/>
 					</div>
 					<div>
@@ -251,7 +251,14 @@ const EmployeeForm: React.FC = () => {
 					>
 						Clear
 					</Button>
-					<Button type='submit' data-testid='submit-button'>
+					<Button
+						type='submit'
+						data-testid='submit-button'
+						disabled={
+							Object.values(formData).some((value) => !value) ||
+							Object.values(errors).some((error) => error)
+						}
+					>
 						Save
 					</Button>
 				</div>

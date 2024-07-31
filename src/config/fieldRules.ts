@@ -4,7 +4,18 @@
  * This module defines validation rules for various fields used in forms throughout the application.
  * Each field has rules for required validation and, optionally, pattern matching.
  */
-export const fieldRules = {
+interface ValidationRule {
+	required?: string;
+	pattern?: {
+		value: RegExp;
+		message: string;
+	};
+	validate?: {
+		[key: string]: (value: string) => boolean | string;
+	};
+}
+
+export const fieldRules: { [key: string]: ValidationRule } = {
 	firstName: {
 		required: "First name is required",
 		pattern: {
@@ -24,6 +35,14 @@ export const fieldRules = {
 		pattern: {
 			value: /^\d{2}\/\d{2}\/\d{4}$/, // Regex: Matches date format MM/DD/YYYY
 			message: "Date of birth must be in the format MM/DD/YYYY",
+		},
+		validate: {
+			notInFuture: (value) => {
+				const today = new Date();
+				const [month, day, year] = value.split("/").map(Number);
+				const date = new Date(year, month - 1, day);
+				return date <= today || "Date of birth cannot be in the future";
+			},
 		},
 	},
 	startDate: {

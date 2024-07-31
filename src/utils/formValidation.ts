@@ -20,14 +20,29 @@ export function validate(
 		const value = formData[key as keyof EmployeeFormData];
 		const rules = fieldRules[key as keyof typeof fieldRules];
 
-		// Check if the field is required and not filled
-		if (rules.required && !value) {
-			errors[key as keyof EmployeeFormData] = rules.required;
-		}
+		switch (true) {
+			// Check if the field is required and not filled
+			case rules.required && !value:
+				errors[key as keyof EmployeeFormData] = rules.required;
+				break;
 
-		// Check if the field has a pattern rule and fails the pattern validation
-		if ("pattern" in rules && value && !rules.pattern.value.test(value)) {
-			errors[key as keyof EmployeeFormData] = rules.pattern.message;
+			// Check if the field has a pattern rule and fails the pattern validation
+			case rules.pattern !== undefined &&
+				value &&
+				!rules.pattern.value.test(value):
+				errors[key as keyof EmployeeFormData] = rules.pattern.message;
+				break;
+
+			// Check if the field has custom validation rules
+			case rules.validate !== undefined:
+				Object.keys(rules.validate).forEach((validateKey) => {
+					const validationFn = rules.validate![validateKey];
+					const validationResult = validationFn(value);
+					if (typeof validationResult === "string") {
+						errors[key as keyof EmployeeFormData] = validationResult;
+					}
+				});
+				break;
 		}
 	});
 

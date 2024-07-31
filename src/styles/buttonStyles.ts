@@ -14,6 +14,7 @@ export const buttonStyles = {
 		outlined:
 			"text-[#0b57d0] dark:text-[#c2e7ffff] hover:bg-[#0b57d0]/20 dark:hover:bg-[#004a77ff]/30",
 		contained: "shadow-default",
+		ghost: "bg-gray-400 text-white cursor-not-allowed",
 	},
 	size: {
 		small: "text-sm",

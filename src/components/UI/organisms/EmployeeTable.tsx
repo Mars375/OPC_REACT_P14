@@ -103,16 +103,14 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 		<div>
 			<div className='flex items-center justify-between gap-2 mb-4'>
 				<div className='flex items-center gap-2'>
-					<span className='text-sm text-gray-500 dark:text-gray-400'>Show</span>
+					<span className='text-sm text-foreground'>Show</span>
 					<EntriesSelector
 						value={pageSize.toString()}
 						onChange={(e) => setPageSize(Number(e.target.value))}
 						options={paginationOptions}
 						className='border p-1 rounded outline-none bg-background'
 					/>
-					<span className='text-sm text-gray-500 dark:text-gray-400'>
-						entries
-					</span>
+					<span className='text-sm text-foreground'>entries</span>
 				</div>
 				<div className='w-1/3'>
 					<Input
@@ -123,8 +121,8 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					/>{" "}
 				</div>
 			</div>
-			<div className='max-w-4xl mx-auto p-6 bg-background-light dark:bg-background-dark-2 shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
-				<Table>
+			<div className='max-w-4xl mx-auto p-6 bg-muted shadow-lg rounded-lg transition-[background-color] duration-300 ease-in-out'>
+				<Table data-testid='employee-table'>
 					<TableHeader>
 						<TableRow>
 							{columns.map((column) => (
@@ -133,6 +131,8 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 									onClick={() =>
 										requestSort(column.key, sortConfig, setSortConfig)
 									}
+									data-testid={`header-${column.key}`}
+									className='cursor-pointer '
 								>
 									{column.label} {getSortIcon(column.key)}
 								</TableHead> // Clickable headers for sorting
@@ -142,9 +142,19 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 					<TableBody>
 						{currentEmployees.length > 0 ? (
 							currentEmployees.map((employee, index) => (
-								<TableRow key={index}>
+								<TableRow
+									key={index}
+									data-testid={`employee-row-${index}`}
+									className={`${
+										index % 2 === 0 ? "bg-background" : "bg-muted"
+									} hover:bg-ring`}
+									aria-label={`Row ${index + 1}`}
+								>
 									{columns.map((column) => (
-										<TableCell key={column.key}>
+										<TableCell
+											key={column.key}
+											data-testid={`cell-${column.key}-${index}`}
+										>
 											{employee[column.key]}
 										</TableCell> // Display employee data
 									))}
@@ -152,7 +162,10 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 							))
 						) : (
 							<TableRow>
-								<TableCell colSpan={columns.length}>
+								<TableCell
+									colSpan={columns.length}
+									data-testid='no-employees-cell'
+								>
 									No Employees Found
 								</TableCell>
 							</TableRow>
@@ -161,7 +174,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 				</Table>
 			</div>
 			<div className='flex justify-between items-center mt-1'>
-				<span className='text-sm text-gray-500 dark:text-gray-400 w-full'>
+				<span className='text-sm text-foreground  w-full'>
 					{`Showing ${pageIndex * pageSize + 1} to ${
 						pageIndex * pageSize + currentEmployees.length
 					} of ${totalItems} entries`}

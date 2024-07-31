@@ -11,9 +11,9 @@ export default defineConfig({
 		environment: "jsdom",
 		setupFiles: "./src/setupTests.ts",
 		browser: {
-			provider: "playwright", // or 'webdriverio'
+			provider: "webdriverio", // or 'webdriverio'
 			enabled: true,
-			name: "chromium", // browser name is required
+			name: "chrome", // browser name is required
 		},
 	},
 	resolve: {

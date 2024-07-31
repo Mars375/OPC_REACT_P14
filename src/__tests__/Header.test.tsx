@@ -39,8 +39,11 @@ describe("Header Component", () => {
 			</ThemeProvider>
 		);
 
+		// Check the presence of the Home link
 		const homeLink = screen.getByText("Home");
 		await userEvent.click(homeLink);
+
+		// Check if the navigation to the home page is successful
 		expect(window.location.pathname).toBe("/");
 	});
 
@@ -53,8 +56,11 @@ describe("Header Component", () => {
 			</ThemeProvider>
 		);
 
+		// Check the presence of the Employees link
 		const employeesLink = screen.getByText("Employees");
 		await userEvent.click(employeesLink);
+
+		// Check if the navigation to the employees page is successful
 		expect(window.location.pathname).toBe("/employees");
 	});
 });

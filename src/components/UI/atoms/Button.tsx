@@ -26,7 +26,9 @@ const Button: React.FC<
 	}) => {
 		// Determine the classes for color, variant, and size based on props
 		const colorClass = buttonStyles.color[color];
-		const variantClass = buttonStyles.variant[variant];
+		const variantClass = disabled
+			? buttonStyles.variant.ghost
+			: buttonStyles.variant[variant];
 		const sizeClass = buttonStyles.size[size];
 		const transitionClass = "transition ease-in-out duration-300";
 
