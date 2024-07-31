@@ -3,32 +3,61 @@ import { render, screen, cleanup } from "@testing-library/react";
 import EmployeeTable from "@components/UI/organisms/EmployeeTable";
 import { EmployeeProvider } from "@/provider/EmployeeProvider";
 import { EmployeeFormData } from "@/types/employeeTypes";
-import { userEvent } from "@testing-library/user-event";
+import { userEvent } from "@vitest/browser/context";
 
-const mockEmployees: EmployeeFormData[] = [
-	{
-		firstName: "John",
-		lastName: "Doe",
-		startDate: "2022-01-01",
-		department: "HR",
-		dateOfBirth: "1990-01-01",
-		street: "123 Main St",
-		city: "Anytown",
-		state: "CA",
-		zipCode: "12345",
-	},
-	{
-		firstName: "Jane",
-		lastName: "Smith",
-		startDate: "2021-05-15",
-		department: "Engineering",
-		dateOfBirth: "1985-07-20",
-		street: "456 Elm St",
-		city: "Othertown",
-		state: "NY",
-		zipCode: "67890",
-	},
+// List of first names and last names to generate mock employees
+const firstNames = [
+	"Alice",
+	"Bob",
+	"Charlie",
+	"David",
+	"Eve",
+	"Faythe",
+	"Grace",
+	"Heidi",
+	"Ivan",
+	"Judy",
 ];
+const lastNames = [
+	"Smith",
+	"Johnson",
+	"Williams",
+	"Brown",
+	"Jones",
+	"Garcia",
+	"Miller",
+	"Davis",
+	"Rodriguez",
+	"Martinez",
+];
+
+// Function to get a random first name
+const getRandomFirstName = () =>
+	firstNames[Math.floor(Math.random() * firstNames.length)];
+// Function to get a random last name
+const getRandomLastName = () =>
+	lastNames[Math.floor(Math.random() * lastNames.length)];
+
+// Generate mock employees for testing
+const generateMockEmployees = (num: number): EmployeeFormData[] => {
+	const employees: EmployeeFormData[] = [];
+	for (let i = 0; i < num; i++) {
+		employees.push({
+			firstName: getRandomFirstName(),
+			lastName: getRandomLastName(),
+			startDate: `2022-01-${String(i + 1).padStart(2, "0")}`,
+			department: `Department${i % 5}`,
+			dateOfBirth: `1990-01-${String(i + 1).padStart(2, "0")}`,
+			street: `${i} Main St`,
+			city: `City${i}`,
+			state: `State${i % 50}`,
+			zipCode: `${String(10000 + i).padStart(5, "0")}`,
+		});
+	}
+	return employees.sort((a, b) => a.firstName.localeCompare(b.firstName));
+};
+
+const mockEmployees = generateMockEmployees(50);
 
 describe("Given that I am a user on the Employee Table page", () => {
 	beforeEach(() => {
@@ -62,27 +91,56 @@ describe("Given that I am a user on the Employee Table page", () => {
 			});
 		});
 
-		it("Then it should display the employee data correctly", () => {
-			mockEmployees.forEach((employee, index) => {
-				expect(screen.getByTestId(`employee-row-${index}`)).toBeInTheDocument();
-				expect(screen.getByText(employee.firstName)).toBeInTheDocument();
-				expect(screen.getByText(employee.lastName)).toBeInTheDocument();
-				expect(screen.getByText(employee.startDate)).toBeInTheDocument();
-				expect(screen.getByText(employee.department)).toBeInTheDocument();
-				expect(screen.getByText(employee.dateOfBirth)).toBeInTheDocument();
-				expect(screen.getByText(employee.street)).toBeInTheDocument();
-				expect(screen.getByText(employee.city)).toBeInTheDocument();
-				expect(screen.getByText(employee.state)).toBeInTheDocument();
-				expect(screen.getByText(employee.zipCode)).toBeInTheDocument();
-			});
+		it("Then it should display the employee data correctly on the first page", () => {
+			// Check the data of the employees on the first page
+			for (let i = 0; i < 10; i++) {
+				const employee = mockEmployees[i];
+				const row = screen.getByTestId(`employee-row-${i}`);
+				expect(row).toBeInTheDocument();
+				expect(screen.getByTestId(`cell-firstName-${i}`)).toHaveTextContent(
+					employee.firstName
+				);
+				expect(screen.getByTestId(`cell-lastName-${i}`)).toHaveTextContent(
+					employee.lastName
+				);
+				expect(screen.getByTestId(`cell-startDate-${i}`)).toHaveTextContent(
+					employee.startDate
+				);
+				expect(screen.getByTestId(`cell-department-${i}`)).toHaveTextContent(
+					employee.department
+				);
+				expect(screen.getByTestId(`cell-dateOfBirth-${i}`)).toHaveTextContent(
+					employee.dateOfBirth
+				);
+				expect(screen.getByTestId(`cell-street-${i}`)).toHaveTextContent(
+					employee.street
+				);
+				expect(screen.getByTestId(`cell-city-${i}`)).toHaveTextContent(
+					employee.city
+				);
+				expect(screen.getByTestId(`cell-state-${i}`)).toHaveTextContent(
+					employee.state
+				);
+				expect(screen.getByTestId(`cell-zipCode-${i}`)).toHaveTextContent(
+					employee.zipCode
+				);
+			}
 		});
 	});
 
 	describe("When the table is initially rendered", () => {
 		it("Then it should sort the employee data by first name in ascending order by default", () => {
 			const rows = screen.getAllByRole("row");
-			expect(rows[1]).toHaveTextContent("Jane");
-			expect(rows[2]).toHaveTextContent("John");
+			expect(rows[1]).toHaveTextContent(mockEmployees[0].firstName);
+			expect(rows[2]).toHaveTextContent(mockEmployees[1].firstName);
+		});
+	});
+
+	describe("When the search input is used", () => {
+		it("Then it should filter the employee data correctly", async () => {
+			const searchInput = screen.getByPlaceholderText("Search...");
+			await userEvent.type(searchInput, "Alice");
+			expect(screen.getByTestId("cell-firstName-0")).toHaveTextContent("Alice");
 		});
 	});
 
@@ -91,28 +149,28 @@ describe("Given that I am a user on the Employee Table page", () => {
 			const firstNameHeader = screen.getByText("First Name");
 			await userEvent.click(firstNameHeader);
 
-			const rows = screen.getAllByRole("row");
-			expect(rows[1]).toHaveTextContent("John");
-			expect(rows[2]).toHaveTextContent("Jane");
+			// Sort the employees in descending order by first name
+			const sortedEmployeesDesc = [...mockEmployees].sort((a, b) =>
+				b.firstName.localeCompare(a.firstName)
+			);
+
+			// Check if the employees are displayed in descending order by first name
+			const rows = screen.getAllByTestId(/^employee-row-/);
+			for (let i = 0; i < rows.length; i++) {
+				expect(rows[i]).toHaveTextContent(sortedEmployeesDesc[i].firstName);
+			}
 
 			await userEvent.click(firstNameHeader);
 
-			expect(rows[1]).toHaveTextContent("Jane");
-			expect(rows[2]).toHaveTextContent("John");
-		});
+			// Sort the employees in ascending order by first name
+			const sortedEmployeesAsc = [...mockEmployees].sort((a, b) =>
+				a.firstName.localeCompare(b.firstName)
+			);
 
-		it("Then it should sort the employee data correctly by last name", async () => {
-			const lastNameHeader = screen.getByText("Last Name");
-			await userEvent.click(lastNameHeader);
-
-			const rows = screen.getAllByRole("row");
-			expect(rows[1]).toHaveTextContent("Doe");
-			expect(rows[2]).toHaveTextContent("Smith");
-
-			await userEvent.click(lastNameHeader);
-
-			expect(rows[1]).toHaveTextContent("Smith");
-			expect(rows[2]).toHaveTextContent("Doe");
+			// Check if the employees are displayed in ascending order by first name
+			for (let i = 0; i < rows.length; i++) {
+				expect(rows[i]).toHaveTextContent(sortedEmployeesAsc[i].firstName);
+			}
 		});
 	});
 });

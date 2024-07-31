@@ -15,6 +15,9 @@ export default defineConfig({
 			enabled: true,
 			name: "chrome", // browser name is required
 		},
+		coverage: {
+			provider: "istanbul", // or 'v8'
+		},
 	},
 	resolve: {
 		alias: {

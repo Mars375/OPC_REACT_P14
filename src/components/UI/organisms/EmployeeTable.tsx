@@ -194,6 +194,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 								className={`p-2 ${
 									!canPreviousPage && "opacity-50 pointer-events-none"
 								}`}
+								data-testid='previous-page-button'
 							/>
 						</PaginationItem>
 						{Array.from({ length: pageCount }, (_, i) => (
@@ -223,6 +224,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 								className={`p-2 ${
 									!canNextPage && "opacity-50 pointer-events-none"
 								}`}
+								data-testid='next-page-button'
 							/>
 						</PaginationItem>
 					</PaginationContent>
