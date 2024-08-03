@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FormField, Button, Label } from "@/index";
 import { validate } from "@/utils/formValidation";
 import { fieldRules } from "@/config/fieldRules";
 import { departmentOptions } from "@/utils/departmentOptions";
 import { states } from "@/utils/states";
-import EmployeeContext from "@/context/EmployeeContext";
 import { EmployeeFormData } from "@/types/employeeTypes";
 import { DatePicker, Combobox, useToast } from "opc-ui";
+import { addEmployee } from "@/redux/employeeSlice";
 
 /**
  * EmployeeForm component for creating or editing employee records.
@@ -15,11 +16,7 @@ import { DatePicker, Combobox, useToast } from "opc-ui";
  * It validates inputs and displays errors where necessary using a custom validation logic.
  */
 const EmployeeForm: React.FC = () => {
-	const context = useContext(EmployeeContext);
-	if (!context) {
-		throw new Error("EmployeeForm must be used within an EmployeeProvider");
-	}
-	const { addEmployee } = context;
+	const dispatch = useDispatch();
 	const { toast } = useToast();
 
 	const [formData, setFormData] = useState<EmployeeFormData>({
@@ -60,7 +57,7 @@ const EmployeeForm: React.FC = () => {
 			});
 			console.log("Error: Please fill in all fields correctly.");
 		} else {
-			addEmployee(formData);
+			dispatch(addEmployee(formData));
 			toast({ title: "Employee created successfully!" });
 			console.log("Employee Validated");
 		}

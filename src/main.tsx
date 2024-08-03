@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 import HomePage from "./pages/HomePage";
 import EmployeeListPage from "./pages/EmployeeListPage";
 import ThemeProvider from "./provider/ThemeProvider";
-import { EmployeeProvider } from "./provider/EmployeeProvider";
+import store from "./redux";
 import { Toaster } from "opc-ui";
 
 import "./globals.css";
@@ -39,11 +40,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<ThemeProvider>
-			<EmployeeProvider>
+			<Provider store={store}>
 				<Toaster />
 				<RouterProvider router={router} />
 				navigation
-			</EmployeeProvider>
+			</Provider>
 		</ThemeProvider>
 	</React.StrictMode>
 );
