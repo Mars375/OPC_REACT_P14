@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { userEvent } from "@vitest/browser/context";
+import { userEvent } from "@testing-library/user-event";
 import { render, screen, cleanup } from "@testing-library/react";
 import { EmployeeProvider } from "@/provider/EmployeeProvider";
 import EmployeeForm from "@components/UI/organisms/EmployeeForm";

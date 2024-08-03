@@ -14,11 +14,9 @@ const Header: React.FC = () => {
 			{/* Logo and main navigation links */}
 			<div className='flex space-x-12'>
 				<Link to='/' className='flex items-center'>
-					<img
-						src='/HRLogo-removebg.png'
-						alt='HRnet Logo'
-						className='h-12 w-12'
-					/>
+					<div className='h-12 w-12'>
+						<img src='/HRLogo.webp' alt='HRnet Logo' />
+					</div>
 					<h1 className='text-2xl font-bold'>HRnet</h1>
 				</Link>
 				<nav className='flex'>

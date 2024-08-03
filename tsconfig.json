@@ -10,7 +10,7 @@
 			"@styles/*": ["./src/styles/*"],
 			"@components/*": ["./src/components/*"]
 		},
-		"types": ["vitest/globals", "@testing-library/jest-dom"],
+		"types": ["@vitest/browser/providers/playwright"],
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",

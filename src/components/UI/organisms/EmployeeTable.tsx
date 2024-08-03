@@ -103,8 +103,11 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 		<div>
 			<div className='flex items-center justify-between gap-2 mb-4'>
 				<div className='flex items-center gap-2'>
-					<span className='text-sm text-foreground'>Show</span>
+					<label htmlFor='entries-selector' className='text-sm text-foreground'>
+						Show
+					</label>
 					<EntriesSelector
+						id='entries-selector'
 						value={pageSize.toString()}
 						onChange={(e) => setPageSize(Number(e.target.value))}
 						options={paginationOptions}
@@ -132,7 +135,7 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 										requestSort(column.key, sortConfig, setSortConfig)
 									}
 									data-testid={`header-${column.key}`}
-									className='cursor-pointer '
+									className='cursor-pointer text-foreground'
 								>
 									{column.label} {getSortIcon(column.key)}
 								</TableHead> // Clickable headers for sorting
@@ -185,15 +188,12 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						<PaginationItem>
 							<PaginationPrevious
 								href='#'
-								size='null'
 								onClick={(e) => {
 									e.preventDefault();
 									previousPage();
 								}}
 								isActive={canPreviousPage}
-								className={`p-2 ${
-									!canPreviousPage && "opacity-50 pointer-events-none"
-								}`}
+								className={`p-2 ${!canPreviousPage && "pointer-events-none"}`}
 								data-testid='previous-page-button'
 							/>
 						</PaginationItem>
@@ -215,15 +215,12 @@ const EmployeeTable: React.FC<{ employees: EmployeeFormData[] | null }> = ({
 						<PaginationItem>
 							<PaginationNext
 								href='#'
-								size='null'
 								onClick={(e) => {
 									e.preventDefault();
 									nextPage();
 								}}
 								isActive={canNextPage}
-								className={`p-2 ${
-									!canNextPage && "opacity-50 pointer-events-none"
-								}`}
+								className={`p-2 ${!canNextPage && "pointer-events-none"}`}
 								data-testid='next-page-button'
 							/>
 						</PaginationItem>

@@ -189,7 +189,6 @@ const EmployeeForm: React.FC = () => {
 						</Label>
 						<Combobox
 							id='department'
-							aria-label='Department'
 							options={departmentOptions}
 							value={formData.department}
 							onChange={(value: string) => handleChange(value, "department")}
@@ -226,8 +225,6 @@ const EmployeeForm: React.FC = () => {
 								State
 							</Label>
 							<Combobox
-								aria-label='Select a state'
-								role='combobox'
 								id='state'
 								options={states}
 								value={formData.state}

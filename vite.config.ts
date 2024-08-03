@@ -7,16 +7,17 @@ import path from "path";
 export default defineConfig({
 	plugins: [react()],
 	test: {
+		setupFiles: ["./src/setupTests.ts"],
 		globals: true,
 		environment: "jsdom",
-		setupFiles: "./src/setupTests.ts",
-		browser: {
-			provider: "webdriverio", // or 'webdriverio'
-			enabled: true,
-			name: "chrome", // browser name is required
-		},
 		coverage: {
-			provider: "istanbul", // or 'v8'
+			provider: "v8",
+			reporter: ["text", "json", "html"],
+		},
+		browser: {
+			provider: "playwright", // or 'webdriverio'
+			enabled: true,
+			name: "chromium", // browser name is required
 		},
 	},
 	resolve: {
