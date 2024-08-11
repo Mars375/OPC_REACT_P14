@@ -1,16 +1,16 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { userEvent } from "@testing-library/user-event";
 import { render, screen, cleanup } from "@testing-library/react";
-import { EmployeeProvider } from "@/provider/EmployeeProvider";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 import EmployeeForm from "@components/UI/organisms/EmployeeForm";
-import EmployeeContext from "@/context/EmployeeContext";
 
 describe("Given that I am a user on the Employee Form page", () => {
 	beforeEach(() => {
 		render(
-			<EmployeeProvider>
+			<Provider store={store}>
 				<EmployeeForm />
-			</EmployeeProvider>
+			</Provider>
 		);
 	});
 
@@ -103,15 +103,12 @@ describe("Given that I am a user on the Employee Form page", () => {
 		it("Then it should call the addEmployee function", async () => {
 			cleanup(); // Clean up the previous render
 
-			const mockAddEmployee = vi.fn();
 			const spyConsoleLog = vi.spyOn(console, "log");
 
 			render(
-				<EmployeeContext.Provider
-					value={{ employees: [], addEmployee: mockAddEmployee }}
-				>
+				<Provider store={store}>
 					<EmployeeForm />
-				</EmployeeContext.Provider>
+				</Provider>
 			);
 
 			await userEvent.type(screen.getByTestId("first-name-input"), "John");
@@ -136,7 +133,7 @@ describe("Given that I am a user on the Employee Form page", () => {
 
 			await userEvent.click(screen.getByTestId("submit-button"));
 
-			expect(mockAddEmployee).toHaveBeenCalledWith({
+			expect(store.getState().employees.employees).toContainEqual({
 				firstName: "John",
 				lastName: "Doe",
 				dateOfBirth: "01/01/1990",

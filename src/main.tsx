@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import HomePage from "./pages/HomePage";
 import EmployeeListPage from "./pages/EmployeeListPage";
 import ThemeProvider from "./provider/ThemeProvider";
-import store from "./redux";
+import store from "./redux/store";
 import { Toaster } from "opc-ui";
 
 import "./globals.css";

@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import EmployeeTable from "@components/UI/organisms/EmployeeTable";
-import { EmployeeProvider } from "@/provider/EmployeeProvider";
 import { EmployeeFormData } from "@/types/employeeTypes";
 import { userEvent } from "@vitest/browser/context";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 // List of first names and last names to generate mock employees
 const firstNames = [
@@ -62,9 +63,9 @@ const mockEmployees = generateMockEmployees(50);
 describe("Given that I am a user on the Employee Table page", () => {
 	beforeEach(() => {
 		render(
-			<EmployeeProvider>
+			<Provider store={store}>
 				<EmployeeTable employees={mockEmployees} />
-			</EmployeeProvider>
+			</Provider>
 		);
 	});
 
