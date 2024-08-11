@@ -43,7 +43,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			<Provider store={store}>
 				<Toaster />
 				<RouterProvider router={router} />
-				navigation
 			</Provider>
 		</ThemeProvider>
 	</React.StrictMode>
